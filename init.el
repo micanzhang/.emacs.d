@@ -47,7 +47,9 @@
 (require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
-(require 'init-growl)
+
+(when (equal (string-equal system-type "windows-nt") nil)
+  (require 'init-growl))
 
 (require 'init-editing-utils)
 
