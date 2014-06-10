@@ -68,7 +68,7 @@
 (require 'init-hippie-expand)
 (require 'init-company)
 (require 'init-windows)
-(require 'init-sessions)
+;;(require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
 
@@ -98,7 +98,7 @@
 (require 'init-nxml)
 (require 'init-html)
 (require 'init-css)
-(require 'init-haml)
+;;(require 'init-haml)
 (require 'init-python-mode)
 (unless (version<= emacs-version "24.3")
   (require 'init-haskell))
