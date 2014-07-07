@@ -84,7 +84,8 @@
 
 (require 'init-marmalade)
 (require 'init-misc)
-
+(require 'init-mican)
+;;(require 'init-go)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
@@ -92,7 +93,6 @@
 (require-package 'htmlize)
 (require-package 'dsvn)
 (require-package 'regex-tool)
-
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
