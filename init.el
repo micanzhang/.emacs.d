@@ -124,6 +124,8 @@
 (require 'init-dash)
 (require 'init-ledger)
 
+(require 'init-mican)
+(require 'init-go)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
@@ -133,7 +135,6 @@
 (when *is-a-mac*
   (require-package 'osx-location))
 (require-package 'regex-tool)
-
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
