@@ -29,6 +29,11 @@
   ;;maxinum
   (if (string-equal system-type "windows-nt") (toggle-windows-nt-fullscreen) (toggle-gnu-linux-fullscreen)))
 
+(defun sugar ()
+  ;;autofill bracket pairs
+  (electric-pair-mode 1))
+
+(sugar)
 (font-config)
 (toggle-fullscreen)
 
