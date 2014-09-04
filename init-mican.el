@@ -10,7 +10,7 @@
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "WenQuanYi Micro Hei Mono" :size 16)))))
+                        (font-spec :family "Noto Sans S Chinese" :size 14)))))
 
 ;;toggle GNU linux full screen
 (defun toggle-gnu-linux-fullscreen ()
@@ -38,4 +38,3 @@
 (toggle-fullscreen)
 
 (provide 'init-mican)
- 
