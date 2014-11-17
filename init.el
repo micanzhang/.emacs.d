@@ -1,3 +1,4 @@
+
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
@@ -84,7 +85,6 @@
 
 (require 'init-marmalade)
 (require 'init-misc)
-(require 'init-mican)
 (require 'init-go)
 ;; Extra packages which don't require any configuration
 
