@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/purcell/emacs.d.png?branch=master)](https://travis-ci.org/purcell/emacs.d)
 
+<<<<<<< 51344880005a15ad90f85f033a102aadc30ccb06
 # A reasonable Emacs config
 
 This is my emacs configuration tree, continually used and tweaked
