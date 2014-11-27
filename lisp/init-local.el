@@ -36,4 +36,5 @@
 (sugar)
 (font-config)
 (toggle-fullscreen)
+
 (provide 'init-local)
