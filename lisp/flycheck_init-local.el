@@ -3,7 +3,7 @@
   ;;english font test
   ;;中方字体测试
   ;;English Font
-  (set-face-attribute 'default nil :family "monaco")
+;;  (set-face-attribute 'default nil :family "monaco-regular")
   (set-face-attribute 'default nil :height 140)
   ;; Chinese Font
   (when (string-equal system-type "windows-nt")
