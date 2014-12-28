@@ -27,3 +27,5 @@ site-lisp/package/
 /frame-restore-parameters
 eshell/*
 server/*
+recentf
+ido.last
