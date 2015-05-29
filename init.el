@@ -1,4 +1,3 @@
-
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 (add-to-list 'load-path (expand-file-name  "~/.emacs.d/lisp") t)

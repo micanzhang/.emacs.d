@@ -7,7 +7,7 @@
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
-(defconst *spell-check-support-enabled* nil)
+(defconst *spell-check-support-enabled* t)
 
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
