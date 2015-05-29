@@ -3,8 +3,8 @@
   ;;english font test
   ;;中方字体测试
   ;;English Font
-  (set-face-attribute 'default nil :family "monaco")
-  (set-face-attribute 'default nil :height 140)
+  (set-face-attribute 'default nil :family "Monaco")
+  (set-face-attribute 'default nil :height 160)
   ;; Chinese Font
   (when (string-equal system-type "windows-nt")
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
@@ -27,7 +27,9 @@
 (defun toggle-fullscreen ()
   (interactive)
   ;;maxinum
-  (if (string-equal system-type "windows-nt") (toggle-windows-nt-fullscreen) (toggle-gnu-linux-fullscreen)))
+  (if (string-equal system-type "windows-nt")
+      (toggle-windows-nt-fullscreen)
+    (if (string-equal system-type "darwin") (toggle-frame-maximized) (toggle-gnu-linux-fullscreen))))
 
 (defun sugar ()
   ;;autofill bracket pairs
