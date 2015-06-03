@@ -84,6 +84,7 @@
 (require 'init-marmalade)
 (require 'init-misc)
 (require 'init-go)
+(require 'init-coffee)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
