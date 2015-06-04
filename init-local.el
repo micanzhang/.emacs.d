@@ -1,4 +1,4 @@
-.(defun setenviron (list)
+(defun setenviron (list)
   (interactive)
   ;;; setenv by source bashrc
   (while list
@@ -54,7 +54,7 @@
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
-                                        ;(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
+;(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 
 (setq exec-path-from-shell-variables '("GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 (when (memq window-system '(mac ns))
