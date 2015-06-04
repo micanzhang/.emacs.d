@@ -46,6 +46,7 @@
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'mwe-log-commands)
+(require-package 'exec-path-from-shell)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
