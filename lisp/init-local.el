@@ -1,3 +1,23 @@
+.(defun setenviron (list)
+  (interactive)
+  ;;; setenv by source bashrc
+  (while list
+    (setq key (car list))
+    (setq value (concat "source ~/.bashrc; echo -n $" key))
+    (if key 
+        (setenv key (shell-command-to-string value)))
+    (setq list (cdr list))))
+
+(defun set-gopath (args &optional)
+  (interactive "environiable or path:")
+  ;;;set gopath directly or by concat existed envs 
+  (setq args (cl-remove-if-not 'stringp args))
+  (setenv "GOPATH"
+          (mapconcat 'concat
+                     (mapcar '(lambda (x) (if (getenv x) (getenv x) x)) args)
+                     ":")))
+
+
 (defun font-config ()
   (interactive)
   ;;english font test
@@ -34,8 +54,13 @@
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
+                                        ;(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 
-(sugar)
+(setq exec-path-from-shell-variables '("GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+;(sugar)
 (font-config)
 (toggle-fullscreen)
 
