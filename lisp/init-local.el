@@ -8,8 +8,19 @@
         (setenv key (shell-command-to-string value)))
     (setq list (cdr list))))
 
+(defun copy-file-name-on-clipboard ()
+  "Put the current file name on the clipboard"
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (with-temp-buffer
+        (insert filename)
+        (clipboard-kill-region (point-min) (point-max)))
+      (message filename))))
+
 (defun set-gopath (args &optional)
-  (interactive "environiable or path:")
   ;;;set gopath directly or by concat existed envs 
   (setq args (cl-remove-if-not 'stringp args))
   (setenv "GOPATH"
@@ -54,13 +65,22 @@
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
-;(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
+(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 
-(setq exec-path-from-shell-variables '("GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-;(sugar)
+ ;(sugar)
+ ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+    (defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
+    (setq backup-directory-alist
+        `((".*" . ,emacs-tmp-dir)))
+    (setq auto-save-file-name-transforms
+        `((".*" ,emacs-tmp-dir t)))
+    (setq auto-save-list-file-prefix
+        emacs-tmp-dir)
+
+(global-set-key (kbd "M-SPC") 'set-mark-command) 
 (font-config)
 (toggle-fullscreen)
 

@@ -1,4 +1,3 @@
-
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 (add-to-list 'load-path (expand-file-name  "~/.emacs.d/lisp") t)
@@ -66,7 +65,7 @@
 (require 'init-org)
 (require 'init-nxml)
 (require 'init-css)
-;;(require 'init-haml)
+(require 'init-haml)
 (require 'init-python-mode)
 ;;(require 'init-haskell)
 ;;(require 'init-ruby-mode)
@@ -75,7 +74,7 @@
 
 (require 'init-paredit)
 (require 'init-lisp)
-(require 'init-slime)
+;;(require 'init-slime)
 (require 'init-clojure)
 (require 'init-common-lisp)
 
@@ -85,6 +84,8 @@
 (require 'init-marmalade)
 (require 'init-misc)
 (require 'init-go)
+(require 'init-projectile)
+(require 'init-w3m)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)

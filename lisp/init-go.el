@@ -53,8 +53,8 @@
       (set (make-local-variable 'compile-command)
            "go build -v && go test -v && go vet"))
   ; Godef jump key binding
-  (local-set-key (kbd "C-x M-g") 'godef-jump)
-  (local-set-key (kbd "C-x C-g") 'godef-jump-other-window)
+  (local-set-key (kbd "C-x C-g") 'godef-jump)
+  (local-set-key (kbd "C-x M-g") 'godef-jump-other-window)
 (local-set-key (kbd "M-.") 'godef-jump))
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 

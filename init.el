@@ -66,7 +66,7 @@
 (require 'init-org)
 (require 'init-nxml)
 (require 'init-css)
-;;(require 'init-haml)
+(require 'init-haml)
 (require 'init-python-mode)
 ;;(require 'init-haskell)
 ;;(require 'init-ruby-mode)
@@ -86,6 +86,8 @@
 (require 'init-misc)
 (require 'init-go)
 (require 'init-coffee)
+;;(require 'init-helm)
+(require 'init-projectile)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
