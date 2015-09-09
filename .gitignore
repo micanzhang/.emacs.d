@@ -30,3 +30,5 @@ server/*
 recentf
 ido.last
 smex-items
+*.eld
+*.cache
