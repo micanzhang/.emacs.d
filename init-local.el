@@ -34,9 +34,8 @@
   ;;english font test
   ;;中方字体测试
   ;;English Font
-  (set-face-attribute 'default nil :family "Monaco")
-  (set-face-attribute 'default nil :height 160)
-  ;; Chinese Font
+  (set-face-attribute 'default nil :family "PT Mono")
+  (set-face-attribute 'default nil :height 180)
   (when (string-equal system-type "windows-nt")
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
@@ -65,13 +64,13 @@
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
-(setenviron (list "GOHOME" "MYGOHOME" "QBASE" "QPORTAL" "QADMINPATH" "QPORTALPATH"))
 
 (when (memq window-system '(mac ns))
+  (global-set-key (kbd "M-SPC") 'set-mark-command) 
   (exec-path-from-shell-initialize))
 
  ;(sugar)
- ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+ ;; Save all tempfiles in $TMPDIR/emacs$UID/ 
     (defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
     (setq backup-directory-alist
         `((".*" . ,emacs-tmp-dir)))
@@ -80,7 +79,6 @@
     (setq auto-save-list-file-prefix
         emacs-tmp-dir)
 
-(global-set-key (kbd "M-SPC") 'set-mark-command) 
 (font-config)
 (toggle-fullscreen)
 
