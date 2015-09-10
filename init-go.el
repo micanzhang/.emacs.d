@@ -14,10 +14,10 @@
 
 (when window-system (set-exec-path-from-shell-PATH))
 
-(setenv "GOPATH" "/Users/micanzhang/Code/golang")
+(setenv "GOPATH" "/home/micanzhang/Code/golang")
 
 (setq exec-path (cons "/usr/local/go/bin" exec-path))
-(add-to-list 'exec-path "/Users/micanzhang/Code/golang/bin")
+(add-to-list 'exec-path "/home/micanzhang/Code/golang/bin")
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
