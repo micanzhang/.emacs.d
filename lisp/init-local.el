@@ -34,13 +34,12 @@
   ;;english font test
   ;;中方字体测试
   ;;English Font
-  (set-face-attribute 'default nil :family "PT Mono")
-  (set-face-attribute 'default nil :height 180)
-  (when (string-equal system-type "windows-nt")
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-default-font "PT Mono-18")
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Noto Sans S Chinese" :size 14)))))
+                        (font-spec :family "Source Han Sans CN" :size 18)
+                        )))
 
 ;;toggle GNU linux full screen
 (defun toggle-gnu-linux-fullscreen ()
@@ -64,10 +63,6 @@
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
-
-(when (memq window-system '(mac ns))
-  (global-set-key (kbd "M-SPC") 'set-mark-command) 
-  (exec-path-from-shell-initialize))
 
  ;(sugar)
  ;; Save all tempfiles in $TMPDIR/emacs$UID/ 
