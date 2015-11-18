@@ -9,6 +9,9 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
 ;; for windows user 
 ;(defun set-exec-path-from-shell-PATH ()
 ;  (let ((path-from-shell (replace-regexp-in-string
