@@ -4,11 +4,6 @@
 ;; go-mode 
 (require-package 'go-mode)
 
-;; go-autocomplete
-(require-package 'go-autocomplete)
-(require 'auto-complete-config)
-(ac-config-default)
-
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "GOPATH"))
@@ -30,6 +25,12 @@
 
 ;;firstly, please esure godef existed,if not, run go get -v github.com/rogpeppe/godef
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
+
+;; go-autocomplete
+(require-package 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
+
 
 (defun my-go-mode-hook ()
   ;Call Gofmt before saving
