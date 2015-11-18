@@ -40,7 +40,6 @@
                         charset
                         (font-spec :family "Source Han Sans CN" :size 18)
                         )))
-
 ;;toggle GNU linux full screen
 (defun toggle-gnu-linux-fullscreen ()
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
@@ -64,7 +63,15 @@
   ;;autofill bracket pairs
   (electric-pair-mode 1))
 
- ;(sugar)
+;; mac switch meta key
+(defun mac-switch-meta nil 
+  "switch meta between Option and Command"
+  (interactive)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'hyper)
+)
+
+ (sugar)
  ;; Save all tempfiles in $TMPDIR/emacs$UID/ 
     (defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
     (setq backup-directory-alist
@@ -74,6 +81,7 @@
     (setq auto-save-list-file-prefix
         emacs-tmp-dir)
 
+(mac-switch-meta)
 (font-config)
 (toggle-fullscreen)
 
