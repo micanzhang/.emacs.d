@@ -1,6 +1,11 @@
 ;;;init mode for google golang code which
 ;;;depend on http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
 
+;; set env
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
+
 ;; go-mode 
 (require-package 'go-mode)
 
@@ -24,7 +29,8 @@
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
 
 ;; go-autocomplete
-(require-package 'go-autocomplete)
+;; run go get github.com/nsf/gocode
+(load-file "$GOPATH/src/github.com/nsf/gocode/emacs/go-autocomplete.el")
 (require 'auto-complete-config)
 (ac-config-default)
 
