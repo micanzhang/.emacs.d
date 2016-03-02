@@ -25,7 +25,7 @@
 ;;load oracle.el
 (load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
-;;firstly, please esure godef existed,if not, run go get -v github.com/rogpeppe/godef
+;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
 
 ;; go-autocomplete
@@ -34,9 +34,12 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(load-file "$GOPATH/src/golang.org/x/tools/refactor/rename/rename.el")
 
 (defun my-go-mode-hook ()
-  ;Call Gofmt before saving
+  ;; Call Gofmt before saving
+  ;; go get golang.org/x/tools/cmd/goimports
+  (setq gofmt-command "goimports")
   (add-hook 'before-save-hook 'gofmt-before-save)
   ; Customize compile command to run go build
   (if (not (string-match "go" compile-command))
@@ -45,7 +48,9 @@
   ; Godef jump key binding
   (local-set-key (kbd "C-x C-g") 'godef-jump)
   (local-set-key (kbd "C-x M-g") 'godef-jump-other-window)
-  )
+  ; go-rename key binding
+  (local-set-key (kbd "C-c C-r") 'go-rename))
+
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
 (provide 'init-go)
