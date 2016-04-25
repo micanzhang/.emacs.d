@@ -41,14 +41,22 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-(require-package 'wgrep)
-(require-package 'project-local-variables)
-(require-package 'diminish)
+(require-package 'wgrep) ;; TODO https://github.com/mhayashi1120/Emacs-wgrep
+;; This file allows you to create .emacs-project files that are
+;; evaluated when a file is opened. You may also create
+;; .emacs-project-$MODE files that only get loaded when you open files
+;; of a specific mode in the project. All files for which a
+;; .emacs-project file exists in an ancestor directory will have it
+;; loaded.
+
+;; It has not been tested in versions of Emacs prior to 22.
+(require-package 'project-local-variables) 
+(require-package 'diminish) ;; https://github.com/myrjola/diminish.el
 (require-package 'scratch)
-(require-package 'mwe-log-commands)
+(require-package 'mwe-log-commands) ;; http://www.foldr.org/~michaelw/emacs/
 (require-package 'exec-path-from-shell)
 
-(require 'init-frame-hooks)
+(require 'init-frame-hooks) ;; TODO 
 (require 'init-xterm)
 (require 'init-themes)
 (require 'init-osx-keys)
