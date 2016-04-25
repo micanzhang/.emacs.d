@@ -23,18 +23,19 @@
 
 ;;make sure run ~$go get golang.org/x/tools/cmd/oracle
 ;;load oracle.el
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+(load-file "/Users/micanzhang/Code/golang/src/golang.org/x/tools/cmd/oracle/oracle.el")
 
 ;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
 
 ;; go-autocomplete
 ;; run go get github.com/nsf/gocode
-(load-file "$GOPATH/src/github.com/nsf/gocode/emacs/go-autocomplete.el")
+;;(load-file "$GOPATH/src/github.com/nsf/gocode/emacs/go-autocomplete.el")
+(require-package 'go-autocomplete)
 (require 'auto-complete-config)
 (ac-config-default)
 
-(load-file "$GOPATH/src/golang.org/x/tools/refactor/rename/rename.el")
+;;(require-package 'go-rename)
 
 (defun my-go-mode-hook ()
   ;; Call Gofmt before saving
@@ -49,7 +50,8 @@
   (local-set-key (kbd "C-x C-g") 'godef-jump)
   (local-set-key (kbd "C-x M-g") 'godef-jump-other-window)
   ; go-rename key binding
-  (local-set-key (kbd "C-c C-r") 'go-rename))
+  ;;(local-set-key (kbd "C-c C-r") 'go-rename)
+  )
 
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 

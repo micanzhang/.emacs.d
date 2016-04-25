@@ -1,5 +1,7 @@
-;;(require-package 'helm)
+(require-package 'helm)
 
 
-;;(require 'helm-config)
+(require 'helm-config)
+
+(provide 'init-helm)
 

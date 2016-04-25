@@ -68,4 +68,7 @@
 (font-config)
 (maximize-frame)
 
+;;(require 'color-theme-tomorrow)
+;;(color-theme-tomorrow--define-theme night)
+
 (provide 'init-local)

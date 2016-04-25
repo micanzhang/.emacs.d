@@ -3,6 +3,7 @@
 
 (require-package 'color-theme-sanityinc-solarized)
 (require-package 'color-theme-sanityinc-tomorrow)
+(require 'me-theme)
 ;;(require-package 'arjen-grey)
 
 ;;------------------------------------------------------------------------------
