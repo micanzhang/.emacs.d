@@ -54,7 +54,7 @@
  (projectile-mode . 2)
  (smex . 2)
  (speedbar-frame-mode . 1)
- (eval-buffer . 104)
+ (eval-buffer . 105)
  (dosomething-region . 3)
  (magit-status . 33)
  (list-directory . 1)

@@ -81,8 +81,8 @@
 (require 'init-fonts)
 (require 'init-mmm)
 
-(when (equal (string-equal system-type "windows-nt") nil)
-  (require 'init-growl))
+;;(when (equal (string-equal system-type "windows-nt") nil)
+;;  (require 'init-growl))
 
 (require 'init-editing-utils)
 (require 'init-whitespace)
@@ -133,7 +133,7 @@
 (require 'init-dash)
 (require 'init-ledger)
 
-(require 'init-mican)
+;;(require 'init-mican)
 (require 'init-go)
 (require 'init-coffee)
 ;;(require 'init-helm)
