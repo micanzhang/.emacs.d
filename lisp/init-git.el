@@ -13,6 +13,7 @@
  magit-completing-read-function 'magit-ido-completing-read)
 
 (global-set-key [(meta f12)] 'magit-status)
+(global-set-key [(meta f11)] 'magit-dispatch-popup)
 
 (after-load 'magit
   ;; Don't let magit-status mess up window configurations
@@ -39,6 +40,7 @@
 (require-package 'github-browse-file)
 (require-package 'bug-reference-github)
 (add-hook 'prog-mode-hook 'bug-reference-prog-mode)
+
 
 
 
