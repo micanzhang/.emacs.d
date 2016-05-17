@@ -76,4 +76,5 @@
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
 
+
 (provide 'init-git)

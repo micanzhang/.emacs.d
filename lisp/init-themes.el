@@ -1,6 +1,11 @@
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "/theme"))
+
+(when (< emacs-major-version 24)
+  (require-package 'color-theme))
+
 (require-package 'color-theme-sanityinc-solarized)
 (require-package 'color-theme-sanityinc-tomorrow)
-(require 'me-theme)
+(load-theme 'me t)
 ;;(require-package 'arjen-grey)
 
 ;; If you don't customize it, this is the theme you get.
