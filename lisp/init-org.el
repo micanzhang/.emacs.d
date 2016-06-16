@@ -350,6 +350,10 @@ typical word processor."
     (define-key org-mode-map (kbd "M-h") nil)
     (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
 
+(require-package 'ob-go)
+(require-package 'ob-php)
+(require-package 'ob-http)
+
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages

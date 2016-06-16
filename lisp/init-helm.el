@@ -1,6 +1,7 @@
 (require-package 'helm)
 (require 'helm-config)
 
+(require-package 'ag)
 (require-package 'helm-ag)
 
 (global-set-key (kbd "M-x")  #'helm-M-x)
