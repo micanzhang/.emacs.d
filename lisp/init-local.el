@@ -62,5 +62,6 @@
 (font-config)
 (toggle-frame-fullscreen)
 (global-hl-line-mode)
+(menu-bar-mode -1)
 
 (provide 'init-local)
