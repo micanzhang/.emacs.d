@@ -9,7 +9,7 @@
     (setq list (cdr list))))
 
 (defun copy-file-name-on-clipboard ()
-  "Put the current file name on the clipboard"
+  "Put the current file name on the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
@@ -20,34 +20,29 @@
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
-(defun set-gopath (args &optional)
-  ;;;set gopath directly or by concat existed envs
-  (setq args (cl-remove-if-not 'stringp args))
-  (setenv "GOPATH"
-          (mapconcat 'concat
-                     (mapcar '(lambda (x) (if (getenv x) (getenv x) x)) args)
-                     ":")))
-
-
 (defun font-config ()
   (interactive)
   ;;english font test
   ;;中方字体测试
   ;;English Font
-  (set-default-font "PT Mono-18")
   ;;(set-default-font "Monaco-18")
+  (set-default-font "PT Mono-18")
+  ;;(set-default-font "DejaVu Sans Mono-18")
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font (frame-parameter nil 'font)
                       charset
-                      (font-spec :family "Source Han Sans CN" :size 18)
-                      )))
+                      ;;(font-spec :family "SimHei" :size 22)
+                      (font-spec :family "Noto Sans Mono CJK SC" :size 22)
+                      ;;(font-spec :family "DejaVu Sans Mono" :size 14)
+                      ))
+  )
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
 
 ;; mac switch meta key
 (defun mac-switch-meta nil
-  "switch meta between Option and Command"
+  "Switch meta between Option and Command."
   (interactive)
   (setq mac-option-modifier 'meta)
   (setq mac-command-modifier 'hyper)
@@ -63,12 +58,9 @@
 (setq auto-save-list-file-prefix
       emacs-tmp-dir)
 
-;;(global-linum-mode t)
 (mac-switch-meta)
 (font-config)
-(maximize-frame)
-
-;;(require 'color-theme-tomorrow)
-;;(color-theme-tomorrow--define-theme night)
+(toggle-frame-fullscreen)
+(global-hl-line-mode)
 
 (provide 'init-local)

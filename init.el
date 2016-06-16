@@ -67,6 +67,7 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
+(require 'init-yasnippet)
 
 (require 'init-recentf)
 (require 'init-smex)
@@ -87,6 +88,7 @@
 (require 'init-editing-utils)
 (require 'init-whitespace)
 (require 'init-fci)
+(require 'init-google)
 
 (require 'init-vc)
 (require 'init-darcs)
@@ -133,11 +135,12 @@
 (require 'init-dash)
 (require 'init-ledger)
 
-;;(require 'init-mican)
 (require 'init-go)
 (require 'init-coffee)
-;;(require 'init-helm)
+(require 'init-helm)
 (require 'init-projectile)
+
+(require 'init-mican)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)
@@ -181,3 +184,4 @@
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+(put 'dired-find-alternate-file 'disabled nil)

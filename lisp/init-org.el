@@ -2,8 +2,15 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (when *is-a-mac*
+<<<<<<< b2aac9b8c6f9da0bd9fe27c6380411f3f4d4f225
   (maybe-require-package 'grab-mac-link)
   (require-package 'org-mac-iCal))
+=======
+  (require-package 'org-mac-link)
+  (autoload 'org-mac-grab-link "org-mac-link" nil t)
+  ;;(require-package 'org-mac-iCal)
+  )
+>>>>>>>         and helm,yasnippet,google translate support
 
 (maybe-require-package 'org-cliplink)
 
@@ -20,9 +27,12 @@
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
+      org-confirm-babel-evaluate nil
+      org-tags-column 80
+      )
 
-
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files "~/Documents/keep" ".org$"))
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 (defun sanityinc/grab-ditaa (url jar-name)
@@ -91,9 +101,9 @@ typical word processor."
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      `(("t" "todo" entry (file "")  ; "" => org-default-notes-file
+      `(("t" "todo" entry (file "~/Documents/keep/refile.org")  ; "" => org-default-notes-file
          "* NEXT %?\n%U\n" :clock-resume t)
-        ("n" "note" entry (file "")
+        ("n" "note" entry (file "~/Documents/keep/refile.org")
          "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
         ))
 
@@ -103,7 +113,7 @@ typical word processor."
 
 (setq org-refile-use-cache nil)
 
-; Targets include this file and any file contributing to the agenda - up to 5 levels deep
+                                        ; Targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
 (after-load 'org-agenda
@@ -156,8 +166,8 @@ typical word processor."
 
   (setq org-agenda-compact-blocks t
         org-agenda-sticky t
-        org-agenda-start-on-weekday nil
-        org-agenda-span 'day
+        org-agenda-start-on-weekday 1   ; week start from monday
+        org-agenda-span 'week
         org-agenda-include-diary nil
         org-agenda-sorting-strategy
         '((agenda habit-down time-up user-defined-up effort-up category-keep)
@@ -272,10 +282,10 @@ typical word processor."
 (when (and *is-a-mac* (file-directory-p "/Applications/org-clock-statusbar.app"))
   (add-hook 'org-clock-in-hook
             (lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-                                (concat "tell application \"org-clock-statusbar\" to clock in \"" org-clock-current-task "\""))))
+                                     (concat "tell application \"org-clock-statusbar\" to clock in \"" org-clock-current-task "\""))))
   (add-hook 'org-clock-out-hook
             (lambda () (call-process "/usr/bin/osascript" nil 0 nil "-e"
-                                "tell application \"org-clock-statusbar\" to clock out"))))
+                                     "tell application \"org-clock-statusbar\" to clock out"))))
 
 
 
@@ -331,6 +341,8 @@ typical word processor."
 ;;                   (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
 ;;                 (insert (match-string 0))))))
 
+(require-package 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (after-load 'org
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
@@ -356,7 +368,11 @@ typical word processor."
      (screen . nil)
      (,(if (locate-library "ob-sh") 'sh 'shell) . t)
      (sql . nil)
-     (sqlite . t))))
+     (sqlite . t)
+     (go . t)
+     (php . t)
+     (http . t)
+     )))
 
 
 (provide 'init-org)
