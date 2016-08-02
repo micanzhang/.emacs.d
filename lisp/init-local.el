@@ -27,9 +27,9 @@
   ;; set default font size
   (set-face-attribute 'default nil :height 180)
   ;; set default font family
-  (when (member "PT-Mono" (font-family-list))
-    (set-face-attribute 'default nil :family "PT-Mono"))
-  ;;(set-default-font "DejaVu Sans Mono-18")
+  (when (member "PT Mono" (font-family-list))
+    (set-face-attribute 'default nil :family "PT Mono"))
+  ;;(set-default-font "PT-Mono-18")
   ;; set font family for unicode charset
   (when (member  "Noto Sans Mono CJK SC" (font-family-list))
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
