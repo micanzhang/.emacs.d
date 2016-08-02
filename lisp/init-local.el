@@ -24,17 +24,21 @@
   (interactive)
   ;;english font test
   ;;中方字体测试
-  ;;English Font
-  ;;(set-default-font "Monaco-18")
-  (set-default-font "PT Mono-18")
+  ;; set default font size
+  (set-face-attribute 'default nil :height 180)
+  ;; set default font family
+  (when (member "PT-Mono" (font-family-list))
+    (set-face-attribute 'default nil :family "PT-Mono"))
   ;;(set-default-font "DejaVu Sans Mono-18")
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font)
-                      charset
-                      ;;(font-spec :family "SimHei" :size 22)
-                      (font-spec :family "Noto Sans Mono CJK SC" :size 22)
-                      ;;(font-spec :family "DejaVu Sans Mono" :size 14)
-                      ))
+  ;; set font family for unicode charset
+  (when (member  "Noto Sans Mono CJK SC" (font-family-list))
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        ;;(font-spec :family "SimHei" :size 22)
+                        (font-spec :family "Noto Sans Mono CJK SC" :size 22)
+                        ;;(font-spec :family "DejaVu Sans Mono" :size 14)
+                        )))
   )
 (defun sugar ()
   ;;autofill bracket pairs
