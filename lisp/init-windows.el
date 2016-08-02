@@ -91,5 +91,13 @@ Call a second time to restore the original window configuration."
 (unless (memq window-system '(nt w32))
   (windmove-default-keybindings 'control))
 
+;; gloden retio
+;; https://github.com/roman/golden-ratio.el
+(require-package 'golden-ratio)
+(golden-ratio-mode 1)
+
+;; enable powerline
+(require-package 'powerline)
+(powerline-default-theme)
 
 (provide 'init-windows)

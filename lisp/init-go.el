@@ -35,9 +35,12 @@
   (message (getenv "GOPATH"))
   )
 
-;;make sure run: go get -u golang.org/x/tools/cmd/oracle
-;;load oracle.el
-(load "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+;;make sure run: go get -u golang.org/x/tools/cmd/guru
+(when (file-exists-p "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
+  (load "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
+  )
+
+
 ;;(add-hook 'go-mode-hook 'go-oracle-mode)
 ;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef

@@ -32,7 +32,9 @@
       )
 
 (load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files "~/Documents/keep" ".org$"))
+(when (file-exists-p "~/Documents/keep")
+  (setq org-agenda-files (find-lisp-find-files "~/Documents/keep" ".org$")))
+
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 (defun sanityinc/grab-ditaa (url jar-name)
