@@ -35,11 +35,14 @@
   (message (getenv "GOPATH"))
   )
 
-;;make sure run: go get -u golang.org/x/tools/cmd/guru
-(when (file-exists-p "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
-  (load "$GOPATH/src/golang.org/x/tools/cmd/guru/go-guru.el")
-  )
 
+;;make sure run: go get -u golang.org/x/tools/cmd/guru
+(let ((guru-path (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/guru/go-guru.el")))
+  (if  (file-exists-p guru-path)
+      (load guru-path)
+    (message "load " guru-path " failed")
+    )
+  )
 
 ;;(add-hook 'go-mode-hook 'go-oracle-mode)
 ;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
