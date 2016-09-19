@@ -2,15 +2,10 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (when *is-a-mac*
-<<<<<<< b2aac9b8c6f9da0bd9fe27c6380411f3f4d4f225
-  (maybe-require-package 'grab-mac-link)
-  (require-package 'org-mac-iCal))
-=======
   (require-package 'org-mac-link)
   (autoload 'org-mac-grab-link "org-mac-link" nil t)
   ;;(require-package 'org-mac-iCal)
   )
->>>>>>>         and helm,yasnippet,google translate support
 
 (maybe-require-package 'org-cliplink)
 
