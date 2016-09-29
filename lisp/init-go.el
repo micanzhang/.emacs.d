@@ -59,7 +59,7 @@
   ;; TODO compile support makefile
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
-           "go build -p 4 -v -race && go test -v -race"))  
+           "go build -p 4 -v -race && go test -v -race -cover && go vet"))
   (local-set-key (kbd "M-.") 'godef-jump) ; Godef jump key binding
   (local-set-key (kbd "C-x M-.") 'godef-jump-other-window)
   (local-set-key (kbd "M-,") 'pop-tag-mark)
