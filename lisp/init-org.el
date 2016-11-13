@@ -1,6 +1,7 @@
 (when (< emacs-major-version 24)
   (require-package 'org))
 (require-package 'org-fstree)
+(require 'org-mime)
 (when *is-a-mac*
   (require-package 'org-mac-link)
   (autoload 'org-mac-grab-link "org-mac-link" nil t)
@@ -90,6 +91,9 @@ typical word processor."
 
 ;;(add-hook 'org-mode-hook 'buffer-face-mode)
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key "\C-c\M-o" 'org-mime-org-buffer-htmlize)))
 
 (setq org-support-shift-select t)
 
@@ -100,6 +104,8 @@ typical word processor."
 (setq org-capture-templates
       `(("t" "todo" entry (file "~/Documents/keep/refile.org")  ; "" => org-default-notes-file
          "* NEXT %?\n%U\n" :clock-resume t)
+        ("p" "project" entry (file+headline "~/Documents/keep/project.org" "unproject")
+         "** TODO %? :qiniu:\n")
         ("n" "note" entry (file "~/Documents/keep/refile.org")
          "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
         ))
@@ -350,6 +356,7 @@ typical word processor."
 (require-package 'ob-go)
 (require-package 'ob-php)
 (require-package 'ob-http)
+(require-package 'ob-translate)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -362,6 +369,8 @@ typical word processor."
      (haskell . nil)
      (latex . t)
      (ledger . t)
+     (js . t)
+     ;;(mongo . t)
      (ocaml . nil)
      (octave . t)
      (python . t)
@@ -373,6 +382,7 @@ typical word processor."
      (go . t)
      (php . t)
      (http . t)
+     (translate . t)
      )))
 
 

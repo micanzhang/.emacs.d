@@ -8,6 +8,7 @@
   (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
 
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
@@ -68,6 +69,7 @@
 (require 'init-ibuffer)
 (require 'init-flycheck)
 (require 'init-yasnippet)
+(require 'init-gnus)
 
 (require 'init-recentf)
 (require 'init-smex)
@@ -78,7 +80,7 @@
 (require 'init-hippie-expand)
 (require 'init-company)
 (require 'init-windows)
-;;(require 'init-sessions)
+(require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
 
@@ -97,6 +99,7 @@
 
 (require 'init-projectile)
 
+(require 'init-web)
 (require 'init-compile)
 (require 'init-crontab)
 (require 'init-textile)
@@ -146,7 +149,8 @@
 (require-package 'gnuplot)
 (require-package 'lua-mode)
 (require-package 'htmlize)
-(require-package 'dsvn)
+;; svn 
+;;(require-package 'dsvn)
 (when *is-a-mac*
   (require-package 'osx-location))
 (require-package 'regex-tool)
