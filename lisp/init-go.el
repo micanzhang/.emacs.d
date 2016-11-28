@@ -5,6 +5,7 @@
   (interactive)
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-env "GOROOT")
     (exec-path-from-shell-copy-env "GOPATH")
     )
   )
@@ -14,6 +15,7 @@
 
 ;; go-mode 
 (require-package 'go-mode)
+(require-package 'go-guru)
 (require-package 'company-go)
 (require-package 'go-eldoc)
 
@@ -27,24 +29,12 @@
       (setq env-dir (locate-dominating-file current-dir ".env"))
       (when env-dir
         (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string (concat "$SHELL --login -i -c 'cd " env-dir ";source .env;echo $GOPATH'") ))))
-          (setenv "GOPATH" path-from-shell)
-          )
-        )
-      )
-    )
-  (message (getenv "GOPATH"))
-  )
+          (setenv "GOPATH" path-from-shell)))))
+  (message (getenv "GOPATH")))
 
 
 ;;make sure run: go get -u golang.org/x/tools/cmd/guru
-(let ((guru-path (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/guru/go-guru.el")))
-  (if  (file-exists-p guru-path)
-      (load guru-path)
-    (message "load " guru-path " failed")
-    )
-  )
 
-;;(add-hook 'go-mode-hook 'go-oracle-mode)
 ;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
 ;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
 
