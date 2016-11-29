@@ -1,0 +1,34 @@
+* emacs configuration
+this is my emacs configuraion, most part of this configuraion forked from [[https://github.com/purcell/emacs.d][purcell/emacs.d]], and i still keeping merge from purcell's
+configuration sometimes.
+
+[[file:README_purcell.md][purcell's README.md]]
+
+** requirements
++ emacs 23.3 or above
+** install
+clone or download this configuration from github:
+#+BEGIN_SRC sh
+cd ~
+git clone git@github.com:micanzhang/.emacs.d
+#+END_SRC
+
+run emacs
+#+BEGIN_SRC sh
+emacs --debug-init // recommended for first run
+#+END_SRC
+** updates
+*** update configration
+update from github
+#+BEGIN_SRC sh
+git fetch upstream/master
+git rebase upstream/master
+#+END_SRC
+*** update packages
+ one way is delete all files at `~/.emacs.d/elpa` ,at restart emacs, recommended way is by run:
+`M-x packages-list-packages`, then `U` followed by `x`.
+** features
+ + [[file:docs/org-mode.org][org-mode]]
+ + [[file:docs/projectile.org][projectile]]
+ + golang
+** cusomization
