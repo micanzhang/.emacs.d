@@ -45,3 +45,4 @@ site-lisp/package/
 /anaconda-mode/
 *.cache
 *.eld
+/.projectile

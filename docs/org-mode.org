@@ -1,0 +1,35 @@
+* org mode
+** ob
+*** ob-http
+ob-http is a http client in org-mode, you can find source code at [[https://github.com/zweifisch/ob-http][https://github.com/zweifisch/ob-http]].
+**** examples
+
+basic usage:
+ #+BEGIN_SRC http :pretty
+GET http://hq.sinajs.cn/rn=1480389356285&list=s_sh000001,s_sz399001,s_sh000300,s_sz399415,s_sz399006
+ #+END_SRC
+
+ #+RESULTS:
+ : var hq_str_s_sh000001="上证指数,3291.6566,14.6570,0.45,1567066,17335004";
+ : var hq_str_s_sz399001="深证成指,11107.85,38.986,0.35,118683412,18064270";
+ : var hq_str_s_sh000300="沪深300,3569.6075,34.5268,0.98,1158101,12333056";
+ : var hq_str_s_sz399415="I100,6787.86,6.061,0.09,18593523,2117169";
+ : var hq_str_s_sz399006="创业板指,2174.84,8.798,0.41,6629692,1401429";
+
+*** ob-go
+#+BEGIN_SRC go
+  package main
+
+  import "fmt"
+
+  func main() {
+          fmt.Println("hello, world!")
+  }
+#+END_SRC
+*** shell
+#+BEGIN_SRC sh
+ls
+#+END_SRC
+
+#+RESULTS:
+: org-mode.org
