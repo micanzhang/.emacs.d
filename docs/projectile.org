@@ -1,0 +1,58 @@
+* projectile
+Projectile is a project interaction library for Emacs.
++ [[https://github.com/bbatsov/projectile][https://github.com/bbatsov/projectile]]
++ [[http://projectile.readthedocs.io/en/latest/][http://projectile.readthedocs.io/en/latest/]]
+** install
+#+BEGIN_SRC elisp
+(require-package 'projectile)
+#+END_SRC
+** usage
++ `C-c p ?` prjectile command or key-binding hinting
++ `C-c p p` switch to another project
++ `C-c p f` jump to a file in current project
++ `C-c p b` list all opened buffers in current project
++ `C-c p i` clear index caches
++ `C-c p r` find and replace
++ `C-c p k` kill all buffers
++ `C-c p D` open directory of project root
++ `C-c p e` list recently visited project files
++ `C-c p !` run shell command in root directory of project
++ `C-c p &` run async shell command in root directory of project
++ `C-c p p` run test command
++ `C-c p c` run compile command
+
+for more usage, please visit: [[http://projectile.readthedocs.io/en/latest/usage/][http://projectile.readthedocs.io/en/latest/usage/]]
+
+** configuraion
+
+my customize configuration
+#+BEGIN_SRC elisp
+(when (maybe-require-package 'projectile)
+  (add-hook 'after-init-hook 'projectile-global-mode)
+
+  ;; use os native index method for best performance
+  (setq projectile-indexing-method 'native)
+
+  ;; jump to root directory of project instead of open project file
+  (setq projectile-switch-project-action 'projectile-dired)
+
+  ;; set grizzl as default completion option
+  (setq projectile-completion-system 'grizzl)
+
+  ;; The following code means you get a menu if you hit "C-c p" and wait
+  (after-load 'guide-key
+    (add-to-list 'guide-key/guide-key-sequence "C-c p"))
+
+  ;; Shorter modeline
+  (after-load 'projectile
+    (setq-default
+     projectile-mode-line
+     '(:eval
+       (if (file-remote-p default-directory)
+           " Pr"
+         (format " Pr[%s]" (projectile-project-name)))))))
+
+#+END_SRC
+
+
+for complelation configuration, please visit: [[http://projectile.readthedocs.io/en/latest/configuration/][http://projectile.readthedocs.io/en/latest/configuration/]]
