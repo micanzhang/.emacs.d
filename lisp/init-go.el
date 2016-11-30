@@ -1,27 +1,31 @@
 ;;;init mode for google golang code which
 ;;;depend on http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
+;;; make sure all those go packages installed or just install as followed:
+;;; go get -u github.com/nsf/gocode
+;;; go get -u golang.org/x/tools/cmd/guru
+;;; go get -u github.com/rogpeppe/godef
+;;; go get -u golang.org/x/tools/cmd/goimports
+;;; go get -u golang.org/x/tools/cmd/gorename
+;;;
+;;; make sure $PATH include $GOPATH/bin
+;;; export PATH=$PATH:$GOPATH/bin
+
+;; install all pacakges 
+(require-package 'go-mode)
+(require-package 'go-guru)
+(require-package 'company-go)
+(require-package 'go-eldoc)
+(require-package 'go-rename)
 
 (defun set-default-gopath ()
   (interactive)
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)
     (exec-path-from-shell-copy-env "GOROOT")
-    (exec-path-from-shell-copy-env "GOPATH")
-    )
-  )
-
-;; set GOPATH env
-(set-default-gopath)
-
-;; go-mode 
-(require-package 'go-mode)
-(require-package 'go-guru)
-(require-package 'company-go)
-(require-package 'go-eldoc)
+    (exec-path-from-shell-copy-env "GOPATH")))
 
 ;; set GOPATH by run .env shell scripts
-(defun set-current-gopath
-    ()
+(defun set-current-gopath () 
   (interactive)
   (when buffer-file-name
     (let (current-dir env-dir)
@@ -32,36 +36,39 @@
           (setenv "GOPATH" path-from-shell)))))
   (message (getenv "GOPATH")))
 
+;; set GOPATH env
+(set-default-gopath)
 
-;;make sure run: go get -u golang.org/x/tools/cmd/guru
-
-;;firstly, please ensure godef existed,if not, run go get -v github.com/rogpeppe/godef
-;;for some reason,you cannot run godef at emacs, a way to fix that is make a soft link to binary of godef
-
-;;(require-package 'go-rename)
-
-(defun my-go-mode-hook ()
-  ;; Call Gofmt before saving
-  ;; go get -u golang.org/x/tools/cmd/goimports
+(defun my-go-mode-hook () 
+  ;; use goimports instead gofmt which help fix packages import
   (setq gofmt-command "goimports")
+  ;; call gofmt before saving
   (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; Customize compile command to run go build
-  ;; TODO compile support makefile
+  ;; set compile command (C-c C-c)
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
            "go build -p 4 -v -race && go test -v -race -cover && go vet"))
-  (local-set-key (kbd "M-.") 'godef-jump) ; Godef jump key binding
-  (local-set-key (kbd "C-x M-.") 'godef-jump-other-window)
-  (local-set-key (kbd "M-,") 'pop-tag-mark)
-  (local-set-key (kbd "C-c C-g") 'set-current-gopath)
-  (local-set-key (kbd "C-c M-g") 'set-default-gopath)
   (local-set-key (kbd "C-c C-c") 'compile)
+  ;; jump to definition
+  (local-set-key (kbd "M-.") 'godef-jump)
+  ;; jump to definition by open other window
+  (local-set-key (kbd "C-x M-.") 'godef-jump-other-window)
+  ;; jump back
+  (local-set-key (kbd "M-,") 'pop-tag-mark)
+  ;; set gopath for current project
+  (local-set-key (kbd "C-c C-g") 'set-current-gopath)
+  ;; use default gopath 
+  (local-set-key (kbd "C-c M-g") 'set-default-gopath)
   )
+
+;; customrize config
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+;; company auto complete
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)))
+;; eldoc setup
 (add-hook 'go-mode-hook 'go-eldoc-setup)
-(add-hook 'go-mode-hook 'my-go-mode-hook)
 
 (provide 'init-go)
 ;; Local Variables:
@@ -70,4 +77,4 @@
 ;; no-update-autoloads: t
 ;; coding: utf-8
 ;; End:
-;;; go-mode-load.el ends here
+;;; init-go ends here

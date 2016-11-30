@@ -30,5 +30,5 @@ git rebase upstream/master
 ** features
  + [[file:docs/org-mode.org][org-mode]]
  + [[file:docs/projectile.org][projectile]]
- + golang
+ + [[file:docs/golang.org::*dependency%20go%20pacakges][golang]]
 ** cusomization
