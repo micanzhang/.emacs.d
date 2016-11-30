@@ -357,6 +357,7 @@ typical word processor."
 (require-package 'ob-php)
 (require-package 'ob-http)
 (require-package 'ob-translate)
+(require 'ob-mongo)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -383,6 +384,7 @@ typical word processor."
      (php . t)
      (http . t)
      (translate . t)
+     (mongo . t)
      )))
 
 
