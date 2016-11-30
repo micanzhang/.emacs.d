@@ -1,3 +1,5 @@
+(require-package 'grizzl)
+
 (when (maybe-require-package 'projectile)
   (add-hook 'after-init-hook 'projectile-global-mode)
 
