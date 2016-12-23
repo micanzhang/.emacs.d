@@ -59,6 +59,7 @@
   (local-set-key (kbd "C-c C-g") 'set-current-gopath)
   ;; use default gopath 
   (local-set-key (kbd "C-c M-g") 'set-default-gopath)
+  (local-set-key (kbd "C-c C-r") 'go-rename)
   )
 
 ;; customrize config
