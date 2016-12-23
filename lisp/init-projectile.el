@@ -25,5 +25,13 @@
            " Pr"
          (format " Pr[%s]" (projectile-project-name)))))))
 
+(eval-after-load "projectile"
+  '(setq magit-repository-directories (mapcar #'directory-file-name
+                                              (cl-remove-if-not (lambda (project)
+                                                                  (file-directory-p (concat project "/.git/")))
+                                                                (projectile-relevant-known-projects)))
+
+         magit-repository-directories-depth 1))
+
 
 (provide 'init-projectile)
