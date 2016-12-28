@@ -142,6 +142,7 @@
 (require 'init-helm)
 (require 'init-projectile)
 
+(require 'init-feed)
 (require 'init-mican)
 ;; Extra packages which don't require any configuration
 
