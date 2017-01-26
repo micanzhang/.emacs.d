@@ -2,6 +2,10 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (require 'org-mime)
+
+(if (> emacs-major-version 24)
+    (require 'ox-md nil t))
+
 (when *is-a-mac*
   (require-package 'org-mac-link)
   (autoload 'org-mac-grab-link "org-mac-link" nil t)
