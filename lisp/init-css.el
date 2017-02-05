@@ -58,5 +58,6 @@
 (autoload 'turn-on-css-eldoc "css-eldoc")
 (add-hook 'css-mode-hook 'turn-on-css-eldoc)
 
+(require-package 'rainbow-mode)
 
 (provide 'init-css)
