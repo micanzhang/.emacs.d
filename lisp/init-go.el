@@ -16,6 +16,7 @@
 (require-package 'company-go)
 (require-package 'go-eldoc)
 (require-package 'go-rename)
+(require-package 'go-dlv)
 
 (defun set-default-gopath ()
   (interactive)
@@ -33,7 +34,8 @@
       (setq env-dir (locate-dominating-file current-dir ".env"))
       (when env-dir
         (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string (concat "$SHELL --login -i -c 'cd " env-dir ";source .env;echo $GOPATH'") ))))
-          (setenv "GOPATH" path-from-shell)))))
+          (setenv "GOPATH" path-from-shell) 
+          ))))
   (message (getenv "GOPATH")))
 
 ;; set GOPATH env
