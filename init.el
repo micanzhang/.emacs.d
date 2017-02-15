@@ -151,6 +151,7 @@
 (require-package 'gnuplot)
 (require-package 'lua-mode)
 (require-package 'htmlize)
+(require-package 'w3m)
 ;; svn 
 ;;(require-package 'dsvn)
 (when *is-a-mac*
