@@ -141,6 +141,7 @@
 (require 'init-coffee)
 (require 'init-helm)
 (require 'init-projectile)
+(require 'init-c)
 
 (require 'init-feed)
 (require 'init-mican)
