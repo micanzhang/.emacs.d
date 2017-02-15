@@ -8,11 +8,11 @@
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'material-theme)
 (require-package 'ample-theme)
+(require-package 'afternoon-theme)
 (load-theme 'me t)
-;;(require-package 'arjen-grey)
 
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(me))
+(setq-default custom-enabled-themes '(afternoon))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -37,14 +37,5 @@
   "Activate a dark color theme."
   (interactive)
   (color-theme-sanityinc-solarized-dark))
-
-;;--------------------------------------------------------------------------------
-;; cycle all avaiable themes by C-c C-t
-;;--------------------------------------------------------------------------------
-;;(setq cycle-themes-theme-list (custom-available-themes)) ; default set themes with all available themes
-;; TODO bugfix cycle-themes-get-next-valid-theme: No valid themes in cycle-themes-theme-list
-;;(setq cycle-themes-theme-list '(me color-theme-sanityinc-solarized-light color-theme-sanityinc-solarized-dark color-theme-sanityinc-tomorrow-night))
-;; (require-package 'cycle-themes)
-;; (cycle-themes-mode)
 
 (provide 'init-themes)
