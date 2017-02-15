@@ -68,7 +68,7 @@
 (require 'init-ibuffer)
 (require 'init-flycheck)
 (require 'init-yasnippet)
-(require 'init-gnus)
+(require 'init-mu4e)
 
 (require 'init-recentf)
 (require 'init-smex)
