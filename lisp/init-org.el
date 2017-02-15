@@ -14,6 +14,9 @@
 
 (maybe-require-package 'org-cliplink)
 
+;; source code of github: https://github.com/ahungry/org-jira
+(maybe-require-package 'org-jira)
+
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
@@ -34,7 +37,8 @@
 (load-library "find-lisp")
 (when (file-exists-p "~/Documents/keep")
   (setq org-agenda-files (find-lisp-find-files "~/Documents/keep" ".org$")))
-
+(when (file-exists-p "~/.org-jira")
+  (setq org-agenda-files (find-lisp-find-files "~/.org-jira" ".org$")))
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 (defun sanityinc/grab-ditaa (url jar-name)
