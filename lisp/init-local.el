@@ -24,8 +24,6 @@
   (interactive)
   ;;english font test
   ;;中方字体测试
-  ;;set default font size
-  ;; linux 14
   (let ((font-family "DejaVu Sans Mono")
         (chinese-font-family "Source Han Sans CN")
         (font-size 18)
@@ -36,11 +34,11 @@
       (setq chinese-font-family "PingFang SC")
       )
     ;;set english font
-    (when (member font-family font-family-list)
+    (when (member font-family (font-family-list))
       (set-frame-font (format "%s:pixelsize=%d" font-family font-size))
       )
     ;;set chinese font
-    (when (member  chinese-font-family (font-family-list))
+    (when (member chinese-font-family (font-family-list))
       (dolist (charset '(kana han symbol cjk-misc bopomofo))
         (set-fontset-font
          (frame-parameter nil 'font)
