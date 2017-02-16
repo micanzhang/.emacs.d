@@ -24,22 +24,32 @@
   (interactive)
   ;;english font test
   ;;中方字体测试
-  ;; set default font size
-  (set-face-attribute 'default nil :height 180)
-  ;; set default font family
-  (when (member "PT Mono" (font-family-list))
-    (set-face-attribute 'default nil :family "PT Mono"))
-  ;;(set-default-font "PT-Mono-18")
-  ;; set font family for unicode charset
-  (when (member  "Noto Sans Mono CJK SC" (font-family-list))
-    (dolist (charset '(kana han symbol cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font)
-                        charset
-                        ;;(font-spec :family "SimHei" :size 22)
-                        (font-spec :family "Noto Sans Mono CJK SC" :size 22)
-                        ;;(font-spec :family "DejaVu Sans Mono" :size 14)
-                        )))
-  )
+  ;;set default font size
+  ;; linux 14
+  (let ((font-family "DejaVu Sans Mono")
+        (chinese-font-family "Source Han Sans CN")
+        (font-size 18)
+        (chinese-font-size 22)
+        )
+    (when *is-a-mac*
+      (setq font-family "PT Mono")
+      (setq chinese-font-family "PingFang SC")
+      )
+    ;;set english font
+    (when (member font-family font-family-list)
+      (set-frame-font (format "%s:pixelsize=%d" font-family font-size))
+      )
+    ;;set chinese font
+    (when (member  chinese-font-family (font-family-list))
+      (dolist (charset '(kana han symbol cjk-misc bopomofo))
+        (set-fontset-font
+         (frame-parameter nil 'font)
+         charset
+         (font-spec :name chinese-font-family
+                    :weight 'normal
+                    :slant 'normal
+                    :size chinese-font-size))))))
+
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
@@ -52,7 +62,6 @@
   (setq mac-command-modifier 'hyper)
   )
 
-(sugar)
 ;; Save all tempfiles in $TMPDIR/emacs$UID/
 (defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
 (setq backup-directory-alist
@@ -62,7 +71,9 @@
 (setq auto-save-list-file-prefix
       emacs-tmp-dir)
 
-(mac-switch-meta)
+(when *is-a-mac*
+  (mac-switch-meta))
+(sugar)
 (font-config)
 (toggle-frame-fullscreen)
 (global-hl-line-mode)
