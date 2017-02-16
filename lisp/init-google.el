@@ -1,6 +1,5 @@
 (require-package 'google-translate)
 
-
 (setq-default google-translate-default-target-language "zh-CN")
 (setq-default google-translate-default-source-language "en")
 
