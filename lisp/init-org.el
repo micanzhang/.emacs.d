@@ -2,6 +2,7 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (require 'org-mime)
+(require 'ox-confluence)
 
 (if (> emacs-major-version 24)
     (require 'ox-md nil t))
