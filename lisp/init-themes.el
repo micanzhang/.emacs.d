@@ -9,7 +9,7 @@
 (require-package 'material-theme)
 (require-package 'ample-theme)
 (require-package 'afternoon-theme)
-(load-theme 'me t)
+(load-theme 'me t t)
 
 ;; If you don't customize it, this is the theme you get.
 (setq-default custom-enabled-themes '(afternoon))
