@@ -38,4 +38,25 @@
   (interactive)
   (color-theme-sanityinc-solarized-dark))
 
+
+;;------------------------------------------------------------------------------
+;; Toggle next theme recyclying
+;;------------------------------------------------------------------------------
+(defun next-theme ()
+  "Activate next theme."
+  (interactive)
+  (let* ((themes (custom-available-themes))
+         (count (length themes))
+         (index 0))
+    (setq index (+ 1 (position (car custom-enabled-themes) themes)))
+    (when (equal index count)
+      (setq index 0))
+    (let ((themes (custom-available-themes)))
+      (while themes
+        (disable-theme (car themes))
+        (setq themes (cdr themes))))
+    (let ((theme (nth index themes)))
+      (load-theme theme t nil)
+      (format "%s" theme))))
+
 (provide 'init-themes)
