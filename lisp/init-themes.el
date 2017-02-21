@@ -56,7 +56,25 @@
         (disable-theme (car themes))
         (setq themes (cdr themes))))
     (let ((theme (nth index themes)))
-      (load-theme theme t nil)
-      (format "%s" theme))))
+      (load-theme theme t nil))))
+
+
+
+;;------------------------------------------------------------------------------
+;; Set theme interactively
+;;------------------------------------------------------------------------------
+
+(defun set-theme (theme)
+  (interactive (list
+                (intern (completing-read "Set theme: "
+                                         (mapcar 'symbol-name
+                                                 (custom-available-themes))))))
+  (unless (memq theme custom-enabled-themes)
+    ;; disable all themes
+    (let ((themes custom-enabled-themes))
+      (while themes
+        (disable-theme (car themes))
+        (setq themes (cdr themes))))
+    (load-theme theme t nil)))
 
 (provide 'init-themes)
