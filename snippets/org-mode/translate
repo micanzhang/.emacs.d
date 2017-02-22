@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: translate
-# key: translate
-# --
-#+BEGIN_SRC translate :src en :dest zh-CN
-$0
-#+END_SRC
