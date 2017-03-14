@@ -9,6 +9,8 @@
 (require-package 'material-theme)
 (require-package 'ample-theme)
 (require-package 'afternoon-theme)
+(require-package 'leuven-theme)
+(require-package 'noctilux-theme)
 (load-theme 'me t t)
 
 ;; If you don't customize it, this is the theme you get.
