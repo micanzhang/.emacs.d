@@ -24,7 +24,8 @@
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-irony))
 
-(add-hook 'c-mode-hook 'helm-gtags-mode)
+;; replace helm-gtags-mode with counsel gtags mode
+;;(add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 (add-hook 'c-mode-hook 'irony-mode)
