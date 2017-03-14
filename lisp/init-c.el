@@ -12,8 +12,9 @@
 (defun my:company-c-headers ()
   (add-to-list 'company-backends 'company-c-headers))
 (add-hook 'c-mode-hook 'my:company-c-headers)
-;; TODO: handle different os
-;;(add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include")
+
+(when (and *is-a-mac* (file-exists-p "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include/"))
+  (add-to-list 'company-c-headers-path-system "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include/"))
 
 ;; install cpplint by run: sudo pip install cpplint
 (add-hook 'c-mode-hook 'flymake-google-cpplint-load)
