@@ -143,6 +143,7 @@
 ;;; (require 'init-helm)
 (require 'init-projectile)
 (require 'init-c)
+(require 'init-java)
 
 (require 'init-feed)
 (require 'init-mican)
