@@ -33,13 +33,15 @@
       org-export-kill-product-buffer-when-displayed t
       org-confirm-babel-evaluate nil
       org-tags-column 80
+      org-latex-pdf-process '("xelatex -shell-escape -interaction nonstopmode %f"
+                              "xelatex -shell-escape -interaction nonstopmode %f")
       )
 
 (load-library "find-lisp")
-(when (file-exists-p "~/Documents/keep")
-  (setq org-agenda-files (find-lisp-find-files "~/Documents/keep" ".org$")))
-(when (file-exists-p "~/.org-jira")
-  (setq org-agenda-files (find-lisp-find-files "~/.org-jira" ".org$")))
+(when (file-exists-p "~/Documents/keep/gtd")
+  (setq org-agenda-files (find-lisp-find-files "~/Documents/keep/gtd" ".org$")))
+;; (when (file-exists-p "~/.org-jira")
+;;   (setq org-agenda-files (find-lisp-find-files "~/.org-jira" ".org$")))
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
 (defun sanityinc/grab-ditaa (url jar-name)
@@ -110,13 +112,16 @@ typical word processor."
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
+
 (setq org-capture-templates
-      `(("t" "todo" entry (file "~/Documents/keep/todo.org")  ; "" => org-default-notes-file
-         "* NEXT %?\n%U\n" :clock-resume t)
-        ("p" "project" entry (file+headline "~/Documents/keep/project.org" "unproject")
-         "** TODO %? :qiniu:\n")
-        ("n" "note" entry (file "~/Documents/keep/note.org")
-         "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+      `(("t" "todo" entry (file+headline "~/Documents/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
+         "** NEXT %? :INBOX:\n%U\n" :clock-resume t)
+        ("p" "project" entry (file+headline "~/Documents/keep/gtd/career.org" "Qiniu")
+         "** PROJECT %? :INBOX:\n")
+        ("n" "note" entry (file "~/Documents/keep/gtd/self.org" "Notes")
+         "** %? :NOTE:\n%U\n%a\n" :clock-resume t)
+        ("l" "list" entry (file+headline "~/Documents/keep/gtd/self.org" "List")
+         "** TODO [#C] %?\n%U\n")
         ))
 
 

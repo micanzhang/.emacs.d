@@ -1,9 +1,12 @@
 (require-package 'helm)
 (require 'helm-config)
 
-(require-package 'ag)
 (require-package 'helm-ag)
 (require-package 'helm-gtags)
+(require-package 'helm-swoop)
+
+(custom-set-variables
+ '(helm-ag-base-command "pt -e --nocolor --nogroup"))
 
 (with-eval-after-load 'helm-gtags
   (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
@@ -15,6 +18,10 @@
 
 (global-set-key (kbd "M-x")  #'helm-M-x)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
-;;(global-set-key (kbd "C-x M-f") #'find-alternate-file)
+(global-set-key (kbd "C-x b") #'helm-buffers-list)
+(global-set-key (kbd "M-y") #'helm-show-kill-ring)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "M-?") 'helm-ag-project-root)
+
 (provide 'init-helm)
 
