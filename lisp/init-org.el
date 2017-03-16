@@ -38,8 +38,8 @@
       )
 
 (load-library "find-lisp")
-(when (file-exists-p "~/Documents/keep/gtd")
-  (setq org-agenda-files (find-lisp-find-files "~/Documents/keep/gtd" ".org$")))
+(when (file-exists-p "~/Dropbox/keep/gtd")
+  (setq org-agenda-files (find-lisp-find-files "~/Dropbox/keep/gtd" ".org$")))
 ;; (when (file-exists-p "~/.org-jira")
 ;;   (setq org-agenda-files (find-lisp-find-files "~/.org-jira" ".org$")))
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
@@ -114,13 +114,13 @@ typical word processor."
 
 
 (setq org-capture-templates
-      `(("t" "todo" entry (file+headline "~/Documents/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
+      `(("t" "todo" entry (file+headline "~/Dropbox/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
          "** NEXT %? :INBOX:\n%U\n" :clock-resume t)
-        ("p" "project" entry (file+headline "~/Documents/keep/gtd/career.org" "Qiniu")
+        ("p" "project" entry (file+headline "~/Dropbox/keep/gtd/career.org" "Qiniu")
          "** PROJECT %? :INBOX:\n")
-        ("n" "note" entry (file "~/Documents/keep/gtd/self.org" "Notes")
+        ("n" "note" entry (file "~/Dropbox/keep/gtd/self.org" "Notes")
          "** %? :NOTE:\n%U\n%a\n" :clock-resume t)
-        ("l" "list" entry (file+headline "~/Documents/keep/gtd/self.org" "List")
+        ("l" "list" entry (file+headline "~/Dropbox/keep/gtd/self.org" "List")
          "** TODO [#C] %?\n%U\n")
         ))
 
