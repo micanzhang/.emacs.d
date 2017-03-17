@@ -49,7 +49,7 @@
   ;; set compile command (C-c C-c)
   (if (not (string-match "go" compile-command))
       (set (make-local-variable 'compile-command)
-           "go build -p 4 -v -race && go test -v -race -cover && go vet"))
+           "go test -v"))
   (local-set-key (kbd "C-c C-c") 'compile)
   ;; jump to definition
   (local-set-key (kbd "M-.") 'godef-jump)
