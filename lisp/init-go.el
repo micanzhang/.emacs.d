@@ -18,29 +18,28 @@
 (require-package 'go-rename)
 (require-package 'go-dlv)
 
-(defun set-default-gopath ()
-  (interactive)
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)
-    (exec-path-from-shell-copy-env "GOROOT")
-    (exec-path-from-shell-copy-env "GOPATH")))
-
 ;; set GOPATH by run .env shell scripts
-(defun set-current-gopath () 
-  (interactive)
-  (when buffer-file-name
-    (let (current-dir env-dir)
-      (setq current-dir (file-name-directory buffer-file-name))
-      (setq env-dir (locate-dominating-file current-dir ".env"))
-      (when env-dir
-        (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string (concat "$SHELL --login -i -c 'cd " env-dir ";source .env;echo $GOPATH'") ))))
-          (setenv "GOPATH" path-from-shell) 
-          ))))
+(defun get-env (path)
+  (cond ((or (string-equal path "/") (not (file-exists-p path))) nil)
+        ((file-exists-p (concat path "/.env")) (concat path "/.env"))
+        ((file-exists-p (concat path "/env.sh")) (concat path "/env.sh"))
+        (t (get-env (file-name-directory (directory-file-name path))))))
+
+(defun set-gopath (path)
+  (let ((gopath (get-env path)))
+    (unless gopath
+      (setq gopath (concat (getenv "HOME") "/.profile")))
+    (setenv "GOPATH" (string-trim (shell-command-to-string (concat "$SHELL --login -i -c 'cd " (file-name-directory (directory-file-name gopath)) ";source " gopath "; echo $GOPATH;'"))))))
+
+(defun set-current-gopath ()
+  (interactive) 
+  (set-gopath (buffer-file-name))
   (message (getenv "GOPATH")))
 
-;; set GOPATH env
-(set-default-gopath)
+;; set default gopath
+(set-current-gopath)
 
+(shell-command-to-string "$SHELL --login -i -c 'cd /Users/micanzhang;source .profile;echo $PATH;'")
 (defun my-go-mode-hook () 
   ;; use goimports instead gofmt which help fix packages import
   (setq gofmt-command "goimports")
@@ -59,8 +58,7 @@
   (local-set-key (kbd "M-,") 'pop-tag-mark)
   ;; set gopath for current project
   (local-set-key (kbd "C-c C-g") 'set-current-gopath)
-  ;; use default gopath 
-  (local-set-key (kbd "C-c M-g") 'set-default-gopath)
+  ;; use default gopath
   (local-set-key (kbd "C-c C-r") 'go-rename)
   )
 
