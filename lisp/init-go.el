@@ -36,10 +36,15 @@
   (set-gopath (buffer-file-name))
   (message (getenv "GOPATH")))
 
-;; set default gopath
-(set-current-gopath)
+(defun set-default-gopath ()
+  (interactive)
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-env "GOROOT")
+    (exec-path-from-shell-copy-env "GOPATH")))
 
-(shell-command-to-string "$SHELL --login -i -c 'cd /Users/micanzhang;source .profile;echo $PATH;'")
+(set-default-gopath)
+
 (defun my-go-mode-hook () 
   ;; use goimports instead gofmt which help fix packages import
   (setq gofmt-command "goimports")
