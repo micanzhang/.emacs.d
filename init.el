@@ -144,6 +144,7 @@
 (require 'init-projectile)
 (require 'init-c)
 (require 'init-java)
+(require 'init-rust)
 
 (require 'init-feed)
 (require 'init-mican)
