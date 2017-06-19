@@ -71,5 +71,18 @@
         (error "Cannot open tramp file")
       (browse-url (concat "file://" file-name)))))
 
+;;----------------------------------------------------------------------------
+;; Create tmp file
+;;----------------------------------------------------------------------------
+(defun create-temp-file ()
+  "Create new temp file with specific extension."
+  (interactive)
+  (let* ((user-ext (read-string "Extension of file:"))
+         (ext (unless (string-equal user-ext "") (format ".%s" user-ext) ""))
+         (file-name (make-temp-file
+                     (format-time-string "%Y%m%d%H%M%S")
+                     nil
+                     ext)))
+    (find-file file-name)))
 
 (provide 'init-utils)
