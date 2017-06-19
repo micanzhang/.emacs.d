@@ -78,11 +78,36 @@
   "Create new temp file with specific extension."
   (interactive)
   (let* ((user-ext (read-string "Extension of file:"))
-         (ext (unless (string-equal user-ext "") (format ".%s" user-ext) ""))
+         (ext (if (> (length user-ext) 0) (format ".%s" user-ext) ""))
          (file-name (make-temp-file
                      (format-time-string "%Y%m%d%H%M%S")
                      nil
                      ext)))
     (find-file file-name)))
+
+
+(defconst execute-mode-map '(("emacs-lisp-mode" . "emacs")
+                             ("go-mode" . "go run")
+                             ("rust-mode" . "cargo script")
+                             ("python-mode" . "python")
+                             ("php-mode" . "php")
+                             ))
+
+;;----------------------------------------------------------------------------
+;; Execute current buffer with customized command
+;;----------------------------------------------------------------------------
+(defun execute-current-buffer ()
+  "Execute buffer with custom execute command."
+  (interactive)
+  (let* ((current-mode (format "%s" major-mode))
+         (execute-command-prefix (cdr (assoc current-mode execute-mode-map))))
+    (cond ((not execute-command-prefix) (message (format "Invalid major mode: %s" current-mode)))
+          ((string-equal execute-command-prefix "emacs") (eval-current-buffer))
+          (t (shell-command (format "%s %s" execute-command-prefix (buffer-file-name))))
+          )))
+
+
+(global-set-key (kbd "C-c C-t") 'create-temp-file)
+(global-set-key (kbd "C-c C-e") 'execute-current-buffer)
 
 (provide 'init-utils)
