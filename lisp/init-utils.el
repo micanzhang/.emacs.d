@@ -107,7 +107,7 @@
           )))
 
 
-(global-set-key (kbd "C-c C-t") 'create-temp-file)
+(global-set-key (kbd "C-c M-t") 'create-temp-file)
 (global-set-key (kbd "C-c C-e") 'execute-current-buffer)
 
 (provide 'init-utils)
