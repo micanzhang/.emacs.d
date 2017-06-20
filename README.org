@@ -1,4 +1,4 @@
-* emacs configuration
+* emacs configuration [[https://travis-ci.org/micanzhang/.emacs.d.svg?branch=master]]
 this is my emacs configuraion, most part of this configuraion forked from [[https://github.com/purcell/emacs.d][purcell/emacs.d]], and i still keeping merge from purcell's
 configuration sometimes.
 
