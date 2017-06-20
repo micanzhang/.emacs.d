@@ -140,7 +140,6 @@
 
 (require 'init-go)
 (require 'init-coffee)
-;;; (require 'init-helm)
 (require 'init-projectile)
 (require 'init-c)
 (require 'init-java)
