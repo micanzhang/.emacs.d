@@ -368,10 +368,10 @@ typical word processor."
     (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
 
 (require-package 'ob-go)
-(require-package 'ob-php)
-(require-package 'ob-http)
-(require-package 'ob-translate)
-(require-package 'ob-mongo)
+;; (require-package 'ob-php)
+;; (require-package 'ob-http)
+;; (require-package 'ob-translate)
+;; (require-package 'ob-mongo)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -398,10 +398,10 @@ typical word processor."
      (sql . nil)
      (sqlite . t)
      (go . t)
-     (php . t)
-     (http . t)
-     (translate . t)
-     (mongo . t)
+     ;; (php . t)
+     ;; (http . t)
+     ;; (translate . t)
+     ;; (mongo . t)
      )))
 
 
