@@ -145,7 +145,7 @@
 (require 'init-java)
 (require 'init-rust)
 
-(require 'init-feed)
+;;(require 'init-feed)
 (require 'init-mican)
 ;; Extra packages which don't require any configuration
 
