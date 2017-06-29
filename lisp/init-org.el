@@ -369,7 +369,7 @@ typical word processor."
 
 (require-package 'ob-go)
 ;; (require-package 'ob-php)
-;; (require-package 'ob-http)
+(require-package 'ob-http)
 ;; (require-package 'ob-translate)
 ;; (require-package 'ob-mongo)
 
@@ -392,13 +392,12 @@ typical word processor."
      (python . t)
      (ruby . t)
      (screen . nil)
-     (sh . t)
      (,(if (locate-library "ob-sh") 'sh 'shell) . t)
      (sql . nil)
      (sqlite . t)
      (go . t)
      ;; (php . t)
-     ;; (http . t)
+     (http . t)
      ;; (translate . t)
      ;; (mongo . t)
      )))
