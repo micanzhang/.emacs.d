@@ -47,7 +47,8 @@
 
 (defun my-go-mode-hook () 
   ;; use goimports instead gofmt which help fix packages import
-  (setq gofmt-command "goimports")
+  (setq gofmt-command "goimports"
+        tab-width 4)
   ;; call gofmt before saving
   (add-hook 'before-save-hook 'gofmt-before-save)
   ;; set compile command (C-c C-c)

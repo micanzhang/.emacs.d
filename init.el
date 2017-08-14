@@ -146,7 +146,8 @@
 (require 'init-rust)
 
 ;;(require 'init-feed)
-(require 'init-mican)
+(require 'init-programming)
+(require 'init-devops)
 ;; Extra packages which don't require any configuration
 
 (require-package 'gnuplot)

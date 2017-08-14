@@ -116,8 +116,8 @@ typical word processor."
 (setq org-capture-templates
       `(("t" "todo" entry (file+headline "~/Dropbox/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
          "** NEXT %? :INBOX:\n%U\n" :clock-resume t)
-        ("p" "project" entry (file+headline "~/Dropbox/keep/gtd/career.org" "Qiniu")
-         "** PROJECT %? :INBOX:\n")
+        ("p" "project" entry (file+headline "~/Dropbox/keep/gtd/career.org" "Current")
+         "*** PROJECT %? :INBOX:\n%U\n" :clock-resume t)
         ("n" "note" entry (file "~/Dropbox/keep/gtd/self.org" "Notes")
          "** %? :NOTE:\n%U\n%a\n" :clock-resume t)
         ("l" "list" entry (file+headline "~/Dropbox/keep/gtd/self.org" "List")
@@ -371,7 +371,7 @@ typical word processor."
 ;; (require-package 'ob-php)
 (require-package 'ob-http)
 ;; (require-package 'ob-translate)
-;; (require-package 'ob-mongo)
+(require-package 'ob-mongo)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -399,7 +399,7 @@ typical word processor."
      ;; (php . t)
      (http . t)
      ;; (translate . t)
-     ;; (mongo . t)
+     (mongo . t)
      )))
 
 

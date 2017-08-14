@@ -1,3 +1,4 @@
+;; tutorial: https://medium.com/@kirang89/emacs-as-email-client-with-offlineimap-and-mu4e-on-os-x-3ba55adc78b6
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 
 (autoload 'mu4e "mu4e" "mu for Emacs." t)
@@ -23,18 +24,6 @@
       mu4e-mu-binary "/usr/local/bin/mu"
       )
 
-
-;;To set the qiniu smtp details
-(defun setQiniu ()
-  (interactive)
-  (message "send by qiniu")
-  (setq user-mail-address "zhangjianqiang@qiniu.com")
-  (setq user-full-name "张建强")
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-default-smtp-server "smtp.exmail.qq.com"
-        smtpmail-smtp-server "smtp.exmail.qq.com"
-        smtpmail-smtp-service 587
-        smtpmail-local-domain "qiniu.com"))
 
 ;;To set gmail smtp details
 (defun setGmail ()
