@@ -1,3 +1,3 @@
 (require-package 'protobuf-mode)
 
-(provide init-programming)
+(provide 'init-programming)

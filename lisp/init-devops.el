@@ -7,4 +7,4 @@
   (let ((host (read-string "Host:")))
     (dired (format "/ssh:%s|sudo:%s:~/" host host))))
 
-(provide init-devops)
+(provide 'init-devops)
