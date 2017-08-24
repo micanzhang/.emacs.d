@@ -2,7 +2,9 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (require 'org-mime)
-(require 'ox-confluence)
+(require-package 'org-trello)
+
+(add-hook 'org-mode-hook 'org-trello-mode)
 
 (if (> emacs-major-version 24)
     (require 'ox-md nil t))
@@ -112,16 +114,15 @@ typical word processor."
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
-
 (setq org-capture-templates
       `(("t" "todo" entry (file+headline "~/Dropbox/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
-         "** NEXT %? :INBOX:\n%U\n" :clock-resume t)
-        ("p" "project" entry (file+headline "~/Dropbox/keep/gtd/career.org" "Current")
-         "*** PROJECT %? :INBOX:\n%U\n" :clock-resume t)
+         "* NEXT %? :INBOX:\n%U\n" :clock-resume t)
+        ("c" "career" entry (file "~/Dropbox/keep/gtd/career.org")
+         "* TODO %? :INBOX:\n%U\n" :clock-resume t)
         ("n" "note" entry (file "~/Dropbox/keep/gtd/self.org" "Notes")
-         "** %? :NOTE:\n%U\n%a\n" :clock-resume t)
+         "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
         ("l" "list" entry (file+headline "~/Dropbox/keep/gtd/self.org" "List")
-         "** TODO [#C] %?\n%U\n")
+         "* TODO [#C] %?\n%U\n")
         ))
 
 
@@ -368,10 +369,8 @@ typical word processor."
     (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
 
 (require-package 'ob-go)
-;; (require-package 'ob-php)
 (require-package 'ob-http)
-;; (require-package 'ob-translate)
-(require-package 'ob-mongo)
+(require-package 'ob-translate)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -396,10 +395,8 @@ typical word processor."
      (sql . nil)
      (sqlite . t)
      (go . t)
-     ;; (php . t)
      (http . t)
-     ;; (translate . t)
-     (mongo . t)
+     (translate . t)
      )))
 
 

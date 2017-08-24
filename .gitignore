@@ -46,3 +46,4 @@ site-lisp/package/
 *.cache
 *.eld
 /.projectile
+.trello
