@@ -4,8 +4,6 @@
 (require 'org-mime)
 (require-package 'org-trello)
 
-(add-hook 'org-mode-hook 'org-trello-mode)
-
 (if (> emacs-major-version 24)
     (require 'ox-md nil t))
 
