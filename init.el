@@ -135,8 +135,8 @@
 ;;(require 'init-feed)
 (require 'init-programming)
 (require 'init-devops)
+(require 'init-pg)
 ;; Extra packages which don't require any configuration
-
 (require-package 'gnuplot)
 (require-package 'lua-mode)
 (require-package 'htmlize)
