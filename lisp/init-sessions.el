@@ -4,12 +4,12 @@
 (desktop-save-mode 1)
 
 (defadvice desktop-read (around time-restore activate)
-    (let ((start-time (current-time)))
-      (prog1
-          ad-do-it
-        (message "Desktop restored in %.2fms"
-                 (sanityinc/time-subtract-millis (current-time)
-                                                 start-time)))))
+  (let ((start-time (current-time)))
+    (prog1
+        ad-do-it
+      (message "Desktop restored in %.2fms"
+               (sanityinc/time-subtract-millis (current-time)
+                                               start-time)))))
 
 (defadvice desktop-create-buffer (around time-create activate)
   (let ((start-time (current-time))
@@ -20,13 +20,13 @@
                (sanityinc/time-subtract-millis (current-time)
                                                start-time)
                (when filename
-		 (abbreviate-file-name filename))))))
+                 (abbreviate-file-name filename))))))
 
 ;;----------------------------------------------------------------------------
 ;; Restore histories and registers after saving
 ;;----------------------------------------------------------------------------
 (setq-default history-length 1000)
-(savehist-mode t)
+(add-hook 'after-init-hook 'savehist-mode)
 
 (require-package 'session)
 

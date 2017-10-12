@@ -1,10 +1,12 @@
+;; -*- lexical-binding: t -*-
+
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
-(let ((minver "23.3"))
-  (when (version<= emacs-version minver)
+(let ((minver "24.3"))
+  (when (version< emacs-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-(when (version<= emacs-version "24")
+(when (version< emacs-version "24.5")
   (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -14,18 +16,18 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;;----------------------------------------------------------------------------
-;; Temporarily reduce garbage collection during startup
+;; Adjust garbage collection thresholds during startup, and thereafter
 ;;----------------------------------------------------------------------------
-(defconst sanityinc/initial-gc-cons-threshold gc-cons-threshold
-  "Initial value of `gc-cons-threshold' at start-up time.")
-(setq gc-cons-threshold (* 128 1024 1024))
-(add-hook 'after-init-hook
-          (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 128 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'after-init-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(require 'init-compat)
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 ;; Calls (package-initialize)
@@ -41,22 +43,13 @@
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
 
-(require-package 'wgrep) ;; TODO https://github.com/mhayashi1120/Emacs-wgrep
-;; This file allows you to create .emacs-project files that are
-;; evaluated when a file is opened. You may also create
-;; .emacs-project-$MODE files that only get loaded when you open files
-;; of a specific mode in the project. All files for which a
-;; .emacs-project file exists in an ancestor directory will have it
-;; loaded.
-
-;; It has not been tested in versions of Emacs prior to 22.
-(require-package 'project-local-variables) 
-(require-package 'diminish) ;; https://github.com/myrjola/diminish.el
+(require-package 'wgrep)
+(require-package 'project-local-variables)
+(require-package 'diminish)
 (require-package 'scratch)
-(require-package 'mwe-log-commands) ;; http://www.foldr.org/~michaelw/emacs/
-(require-package 'exec-path-from-shell)
+(require-package 'command-log-mode)
 
-(require 'init-frame-hooks) ;; TODO 
+(require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
 (require 'init-osx-keys)
@@ -67,29 +60,23 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
-(require 'init-yasnippet)
-(require 'init-mu4e)
+(require 'init-yasnippet) ;TODO: 
+(require 'init-mu4e);TODO: 
 
 (require 'init-recentf)
 (require 'init-smex)
-;; If you really prefer ido to ivy, change the comments below. I will
-;; likely remove the ido config in due course, though.
-;; (require 'init-ido)
 (require 'init-ivy)
 (require 'init-hippie-expand)
 (require 'init-company)
 (require 'init-windows)
-;;(require 'init-sessions)
+(require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
 
-;;(when (equal (string-equal system-type "windows-nt") nil)
-;;  (require 'init-growl))
-
 (require 'init-editing-utils)
 (require 'init-whitespace)
-(require 'init-fci)
-(require 'init-google)
+(require 'init-fci) ;TODO: 
+(require 'init-google) ;TODO: 
 
 (require 'init-vc)
 (require 'init-darcs)
@@ -98,9 +85,9 @@
 
 (require 'init-projectile)
 
-(require 'init-web)
+(require 'init-web) ;TODO: 
 (require 'init-compile)
-(require 'init-crontab)
+(require 'init-crontab) ;TODO: 
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
@@ -108,25 +95,33 @@
 (require 'init-javascript)
 (require 'init-php)
 (require 'init-org)
-(require 'init-plantuml)
+(require 'init-plantuml) ;TODO: 
 (require 'init-nxml)
 (require 'init-html)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
-(unless (version<= emacs-version "24.3")
-  (require 'init-haskell))
+(require 'init-haskell)
 (require 'init-elm)
 (require 'init-ruby-mode)
 (require 'init-rails)
 (require 'init-sql)
+(require 'init-go)
+(require 'init-coffee)
+(require 'init-c)
+(require 'init-java)
+(require 'init-rust)
+(require 'init-rust);TODO:
+(require 'init-toml)
+(require 'init-yaml)
+(require 'init-docker)
+(maybe-require-package 'terraform-mode)
 
 (require 'init-paredit)
 (require 'init-lisp)
 (require 'init-slime)
-(unless (version<= emacs-version "24.2")
-  (require 'init-clojure)
-  (require 'init-clojure-cider))
+(require 'init-clojure)
+(require 'init-clojure-cider)
 (require 'init-common-lisp)
 
 (when *spell-check-support-enabled*
@@ -138,13 +133,6 @@
 (require 'init-dash)
 (require 'init-ledger)
 
-(require 'init-go)
-(require 'init-coffee)
-(require 'init-projectile)
-(require 'init-c)
-(require 'init-java)
-(require 'init-rust)
-
 ;;(require 'init-feed)
 (require 'init-programming)
 (require 'init-devops)
@@ -154,11 +142,12 @@
 (require-package 'lua-mode)
 (require-package 'htmlize)
 ;;(require-package 'w3m)
-;; svn 
-;;(require-package 'dsvn)
+(require-package 'dsvn)
 (when *is-a-mac*
   (require-package 'osx-location))
-(require-package 'regex-tool)
+(maybe-require-package 'regex-tool)
+
+
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
@@ -170,7 +159,6 @@
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -185,6 +173,10 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
 (require 'init-locales)
+
+
+(when (maybe-require-package 'uptimes)
+  (add-hook 'after-init-hook (lambda () (require 'uptimes))))
 
 
 (provide 'init)

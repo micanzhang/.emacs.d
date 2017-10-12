@@ -1,7 +1,7 @@
 (require-package 'grizzl)
 
 (when (maybe-require-package 'projectile)
-  (add-hook 'after-init-hook 'projectile-global-mode)
+  (add-hook 'after-init-hook 'projectile-mode)
 
   ;; use os native index method for best performance
   (setq projectile-indexing-method 'native)

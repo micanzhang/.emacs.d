@@ -1,9 +1,5 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "/theme"))
 
-(when (< emacs-major-version 24)
-  (require-package 'color-theme))
-
-
 (require-package 'color-theme-sanityinc-solarized)
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'material-theme)
