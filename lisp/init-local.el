@@ -20,34 +20,6 @@
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
 
-(defun font-config ()
-  (interactive)
-  ;;english font test
-  ;;中方字体测试
-  (let ((font-family "DejaVu Sans Mono")
-        (chinese-font-family "Source Han Sans CN")
-        (font-size 18)
-        (chinese-font-size 22)
-        )
-    (when *is-a-mac*
-      (setq font-family "PT Mono")
-      (setq chinese-font-family "PingFang SC")
-      )
-    ;;set english font
-    (when (member font-family (font-family-list))
-      (set-frame-font (format "%s:pixelsize=%d" font-family font-size))
-      )
-    ;;set chinese font
-    (when (member chinese-font-family (font-family-list))
-      (dolist (charset '(kana han symbol cjk-misc bopomofo))
-        (set-fontset-font
-         (frame-parameter nil 'font)
-         charset
-         (font-spec :name chinese-font-family
-                    :weight 'normal
-                    :slant 'normal
-                    :size chinese-font-size))))))
-
 (defun sugar ()
   ;;autofill bracket pairs
   (electric-pair-mode 1))
@@ -72,7 +44,6 @@
 (when *is-a-mac*
   (mac-switch-meta))
 (sugar)
-(font-config)
 (toggle-frame-fullscreen)
 (global-hl-line-mode)
 (menu-bar-mode -1)
