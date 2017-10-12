@@ -6,7 +6,7 @@
     (require 'ox-md nil t))
 
 (when *is-a-mac*
-  (require-package 'org-mac-link))
+  (require-package 'grab-mac-link))
 
 (maybe-require-package 'org-cliplink)
 
