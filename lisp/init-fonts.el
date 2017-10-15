@@ -26,9 +26,9 @@ This is helpful for writeroom-mode, in particular."
         (chinese-font-size 22)
         )
     (when *is-a-mac*
-      (setq font-family "Fira Code")
-      ;; (setq font-family "PT Mono")
-      ;; (setq chinese-font-family "PingFang SC")
+      ;;(setq font-family "Fira Code")
+      (setq font-family "PT Mono")
+      (setq chinese-font-family "PingFang SC")
       )
     ;;set english font
     (when (member font-family (font-family-list))
