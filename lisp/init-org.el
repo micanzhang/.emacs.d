@@ -114,7 +114,7 @@ typical word processor."
 
 (setq org-capture-templates
       `(("t" "todo" entry (file+headline "~/Dropbox/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
-         "* NEXT %? :INBOX:\n%U\n" :clock-resume t)
+         "* TODO %? :INBOX:\n%U\n" :clock-resume t)
         ("c" "career" entry (file "~/Dropbox/keep/gtd/career.org")
          "* TODO %? :INBOX:\n%U\n" :clock-resume t)
         ("n" "note" entry (file "~/Dropbox/keep/gtd/self.org" "Notes")
@@ -382,10 +382,8 @@ typical word processor."
 (require-package 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-
 (require-package 'ob-go)
 (require-package 'ob-http)
-(require-package 'ob-translate)
 
 (after-load 'org
   (org-babel-do-load-languages
@@ -406,13 +404,11 @@ typical word processor."
      (python . t)
      (ruby . t)
      (screen . nil)
-     (shell . t)
-     ;;(,(if (locate-library "ob-sh") 'sh 'shell) . t)
+     (,(if (locate-library "ob-sh") 'sh 'shell) . t)
      (sql . nil)
      (sqlite . t)
      (go . t)
      (http . t)
-     (translate . t)
      )))
 
 (provide 'init-org)

@@ -69,7 +69,7 @@
 (require 'init-hippie-expand)
 (require 'init-company)
 (require 'init-windows)
-(require 'init-sessions)
+;;(require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
 
@@ -85,7 +85,8 @@
 
 (require 'init-projectile)
 
-(require 'init-web) ;TODO: 
+(require 'init-web) ;TODO:
+(require 'init-http)
 (require 'init-compile)
 (require 'init-textile)
 (require 'init-markdown)
@@ -110,7 +111,6 @@
 (require 'init-c)
 (require 'init-java)
 (require 'init-rust)
-(require 'init-rust);TODO:
 (require 'init-toml)
 (require 'init-yaml)
 (require 'init-docker)
