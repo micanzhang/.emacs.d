@@ -60,9 +60,8 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
-(require 'init-yasnippet) ;TODO: 
-(require 'init-mu4e);TODO: 
-
+(require 'init-yasnippet) 
+(require 'init-mu4e)
 (require 'init-recentf)
 (require 'init-smex)
 (require 'init-ivy)
@@ -71,20 +70,16 @@
 (require 'init-windows)
 (require 'init-fonts)
 (require 'init-mmm)
-
 (require 'init-editing-utils)
 (require 'init-whitespace)
 (require 'init-fci) ;TODO: 
 (require 'init-google) ;TODO: 
-
 (require 'init-vc)
 (require 'init-darcs)
 (require 'init-git)
 (require 'init-github)
-
 (require 'init-projectile)
-
-(require 'init-web) ;TODO:
+(require 'init-web)
 (require 'init-http)
 (require 'init-compile)
 (require 'init-textile)

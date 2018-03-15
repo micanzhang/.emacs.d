@@ -25,12 +25,9 @@
       )
 
 
-;;To set gmail smtp details
-(defun setGmail ()
+;;To set personal smtp details
+(defun setPersonal ()
   (interactive)
-  (message "from: "  (message-field-value "From"))
-  (message "to: "  (message-field-value "to"))
-  (message "subject: "  (message-field-value "Subject"))
   (message "send by gmail")
   (setq user-mail-address "micanzhang@gmail.com")
   (setq user-full-name "Mican Zhang")
@@ -40,18 +37,29 @@
         smtpmail-smtp-service 587
         smtpmail-local-domain "gmail.com"))
 
+;;To outlook smtp details
+(defun setWork ()
+  (interactive)
+  (message "send by liulishuo")
+  (setq user-mail-address "mican.zhang@liulishuo.com")
+  (setq user-full-name "Mican Zhang")
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-default-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-server "smtp.partner.outlook.cn"
+        smtpmail-smtp-service 587
+        smtpmail-local-domain "partner.outlook.cn"))
 
-;;(add-hook 'message-send-hook 'setQiniu)
+;;(add-hook 'message-send-hook 'setWork)
 ;;Select automatically while replying
 (add-hook 'message-send-hook
           '(lambda ()
-             (message "from: "  (message-field-value "from"))
-             (message "to: "  (mail-fetch-field "to"))
-             (message "subject: "  (message-fetch-field "subject"))
-             (let ((from (message-fetch-field "from")))
-               (if (and from (string-match "qiniu" from))
-                   (setQiniu)
-                 (setGmail)))))
+             (let ((from (message-field-value "From")))
+               (message "from: %s"  (message-field-value "From"))
+               (message "to: %s"  (message-field-value "To"))
+               (message "subject: %s"  (message-field-value "Subject"))
+               (if (and from (string-match "liulishuo" from))
+                   (setWork)
+                 (setPersonal)))))
 
 (global-set-key (kbd "C-x M-m") 'mu4e)
 
