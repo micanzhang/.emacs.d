@@ -14,14 +14,14 @@
       :face mmm-code-submode-face
       :front "<style[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
       :back "[ \t]*\\(//\\)?]]>[ \t\n]*</style>"
-      :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+      :insert ((?c css-tag nil @ "<style type=\"text/css\">"
                    @ "\n" _ "\n" @ "</style>" @)))
      (css
       :submode css-mode
       :face mmm-code-submode-face
       :front "<style[^>]*>[ \t]*\n?"
       :back "[ \t]*</style>"
-      :insert ((?j js-tag nil @ "<style type=\"text/css\">"
+      :insert ((?c css-tag nil @ "<style type=\"text/css\">"
                    @ "\n" _ "\n" @ "</style>" @)))
      (css-inline
       :submode css-mode
@@ -36,13 +36,17 @@
 
 ;;; SASS and SCSS
 (require-package 'sass-mode)
-(require-package 'scss-mode)
+(unless (fboundp 'scss-mode)
+  ;; Prefer the scss-mode built into Emacs
+  (require-package 'scss-mode))
 (setq-default scss-compile-at-save nil)
 
 
 
 ;;; LESS
-(require-package 'less-css-mode)
+(unless (fboundp 'less-css-mode)
+  ;; Prefer the scss-mode built into Emacs
+  (require-package 'less-css-mode))
 (when (maybe-require-package 'skewer-less)
   (add-hook 'less-css-mode-hook 'skewer-less-mode))
 

@@ -1,4 +1,3 @@
-(require-package 'org-fstree)
 (require 'org-mime)
 (require-package 'org-trello)
 

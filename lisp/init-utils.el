@@ -108,7 +108,14 @@
           )))
 
 
+(defun insert-coursescript-id ()
+  "Auto generate coursescript id with current timestamp in usec."
+  (interactive)
+  (insert (number-to-string (floor (* 1000000 (float-time (current-time)))))))
+
 (global-set-key (kbd "C-c M-t") 'create-temp-file)
 (global-set-key (kbd "C-c C-e") 'execute-current-buffer)
+(global-set-key (kbd "C-c i") 'insert-coursescript-id)
+
 
 (provide 'init-utils)
