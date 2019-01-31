@@ -389,6 +389,7 @@ typical word processor."
    'org-babel-load-languages
    `(;;(R . t)
      (ditaa . t)
+     (plantuml . t)
      (dot . t)
      (emacs-lisp . t)
      (lisp . t)

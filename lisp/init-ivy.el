@@ -3,6 +3,7 @@
   (add-hook 'after-init-hook 'ivy-mode)
   (after-load 'ivy
     (setq-default ivy-use-virtual-buffers t
+                  enable-recursive-minibuffers t
                   ivy-virtual-abbreviate 'fullpath
                   ivy-count-format ""
                   projectile-completion-system 'ivy
@@ -12,6 +13,7 @@
                   '((Man-completion-table . "^")
                     (woman . "^")))
 
+    (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
     ;; IDO-style directory navigation
     (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
     (dolist (k '("C-j" "C-RET"))
@@ -36,7 +38,20 @@
   (setq-default counsel-mode-override-describe-bindings t)
   (when (maybe-require-package 'diminish)
     (after-load 'counsel
-      (diminish 'counsel-mode)))
+      (diminish 'counsel-mode)
+      (global-set-key "\C-s" 'swiper)
+      (global-set-key (kbd "C-c C-r") 'ivy-resume)
+      (global-set-key (kbd "<f6>") 'ivy-resume)
+      (global-set-key (kbd "M-x") 'counsel-M-x)
+      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+      (global-set-key (kbd "<f1> l") 'counsel-find-library)
+      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+      (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+      (global-set-key (kbd "C-c g") 'counsel-git)
+      (global-set-key (kbd "C-c j") 'counsel-git-grep)
+      (global-set-key (kbd "C-c k") 'counsel-rg)))
   (add-hook 'after-init-hook 'counsel-mode)
 
   (when (maybe-require-package 'projectile)
@@ -56,14 +71,14 @@ instead."
                              current-prefix-arg))
           (let ((current-prefix-arg)
                 (dir (if use-current-dir
-                         default-directory
-                       (condition-case err
-                           (projectile-project-root)
-                         (error default-directory)))))
+                                         default-directory
+                               (condition-case err
+                                           (projectile-project-root)
+                                 (error default-directory)))))
             (funcall search-function initial-input dir)))))
-    (after-load 'ivy
+                    (after-load 'ivy
       (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
-    (global-set-key (kbd "M-?") 'sanityinc/counsel-search-project)))
+                    (global-set-key (kbd "M-?") 'sanityinc/counsel-search-project)))
 
 
 (when (maybe-require-package 'swiper)

@@ -105,7 +105,7 @@
 (require 'init-haskell)
 (require 'init-elm)
 (require 'init-ruby)
-(require 'init-rails)
+;; (require 'init-rails)
 (require 'init-sql)
 (require 'init-go)
 ;;TODO(micanzhang):(require 'init-coffee)
@@ -193,3 +193,5 @@
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+(put 'set-goal-column 'disabled nil)
+(put 'erase-buffer 'disabled nil)

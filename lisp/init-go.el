@@ -1,7 +1,7 @@
 ;;;init mode for google golang code which
 ;;;depend on http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
 ;;; make sure all those go packages installed or just install as followed:
-;;; go get -u github.com/nsf/gocode
+;;; go get -u github.com/stamblerre/gocode
 ;;; go get -u golang.org/x/tools/cmd/guru
 ;;; go get -u github.com/rogpeppe/godef
 ;;; go get -u golang.org/x/tools/cmd/goimports
@@ -18,23 +18,6 @@
 (require-package 'go-rename)
 (require-package 'go-dlv)
 
-;; set GOPATH by run .env shell scripts
-(defun get-env (path)
-  (cond ((or (string-equal path "/") (not (file-exists-p path))) nil)
-        ((file-exists-p (concat path "/.env")) (concat path "/.env"))
-        ((file-exists-p (concat path "/env.sh")) (concat path "/env.sh"))
-        (t (get-env (file-name-directory (directory-file-name path))))))
-
-(defun set-gopath (path)
-  (let ((gopath (get-env path)))
-    (unless gopath
-      (setq gopath (concat (getenv "HOME") "/.profile")))
-    (setenv "GOPATH" (string-trim (shell-command-to-string (concat "$SHELL --login -i -c 'cd " (file-name-directory (directory-file-name gopath)) ";source " gopath "; echo $GOPATH;'"))))))
-
-(defun set-current-gopath ()
-  (interactive) 
-  (set-gopath (buffer-file-name))
-  (message (getenv "GOPATH")))
 
 (defun set-default-gopath ()
   (interactive)
@@ -62,12 +45,9 @@
   (local-set-key (kbd "C-x M-.") 'godef-jump-other-window)
   ;; jump back
   (local-set-key (kbd "M-,") 'pop-tag-mark)
-  ;; set gopath for current project
-  (local-set-key (kbd "C-c C-g") 'set-current-gopath)
   ;; use default gopath
   (local-set-key (kbd "C-c C-r") 'go-rename)
-  (go-guru-hl-identifier-mode)
-  )
+  (go-guru-hl-identifier-mode))
 
 ;; customrize config
 (add-hook 'go-mode-hook 'my-go-mode-hook)
