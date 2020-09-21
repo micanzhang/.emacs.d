@@ -43,7 +43,6 @@
 
 (when *is-a-mac*
   (mac-switch-meta))
-(sugar)
 (toggle-frame-fullscreen)
 (global-hl-line-mode)
 (menu-bar-mode -1)

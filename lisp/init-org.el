@@ -1,5 +1,5 @@
-(require 'org-mime)
-(require-package 'org-trello)
+(require 'org-tempo)
+(require-package 'org-mind-map)
 
 (if (> emacs-major-version 24)
     (require 'ox-md nil t))
@@ -102,9 +102,9 @@ typical word processor."
 
 (setq org-support-shift-select t)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key "\C-c\M-o" 'org-mime-org-buffer-htmlize)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (local-set-key "\C-c\M-o" 'org-mime-org-buffer-htmlize)))
 
 
 ;;; Capturing
@@ -112,13 +112,13 @@ typical word processor."
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      `(("t" "todo" entry (file+headline "~/Dropbox/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
+      `(("t" "todo" entry (file+headline "~/Google Drive/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
          "* TODO %? :INBOX:\n%U\n" :clock-resume t)
-        ("c" "career" entry (file "~/Dropbox/keep/gtd/career.org")
+        ("c" "work" entry (file "~/Google Drive/keep/gtd/career.org")
          "* TODO %? :INBOX:\n%U\n" :clock-resume t)
-        ("n" "note" entry (file "~/Dropbox/keep/gtd/self.org" "Notes")
+        ("n" "note" entry (file "~/Google Drive/keep/gtd/self.org" "Notes")
          "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
-        ("l" "list" entry (file+headline "~/Dropbox/keep/gtd/self.org" "List")
+        ("l" "list" entry (file+headline "~/Google Drive/keep/gtd/self.org" "List")
          "* TODO [#C] %?\n%U\n")
         ))
 

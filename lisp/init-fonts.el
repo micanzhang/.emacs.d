@@ -28,6 +28,7 @@ This is helpful for writeroom-mode, in particular."
     (when *is-a-mac*
       ;;(setq font-family "Fira Code")
       (setq font-family "PT Mono")
+      ;;(setq font-family "Go Mono")
       (setq chinese-font-family "PingFang SC")
       )
     ;;set english font

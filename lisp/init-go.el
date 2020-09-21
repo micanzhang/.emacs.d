@@ -9,54 +9,43 @@
 ;;;
 ;;; make sure $PATH include $GOPATH/bin
 ;;; export PATH=$PATH:$GOPATH/bin
-
-;; install all pacakges 
 (require-package 'go-mode)
-(require-package 'go-guru)
-(require-package 'company-go)
-(require-package 'go-eldoc)
-(require-package 'go-rename)
-(require-package 'go-dlv)
+(require-package 'lsp-mode)
+(require-package 'lsp-ui)
 
-
-(defun set-default-gopath ()
+(defun set-default-goenv ()
   (interactive)
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)
-    (exec-path-from-shell-copy-env "GOROOT")
-    (exec-path-from-shell-copy-env "GOPATH")))
+    (exec-path-from-shell-copy-env "GOPATH")
+    (exec-path-from-shell-copy-env "GOPRIVATE")
+    (exec-path-from-shell-copy-env "CGO_ENABLED")))
 
-(set-default-gopath)
+(set-default-goenv)
 
-(defun my-go-mode-hook () 
-  ;; use goimports instead gofmt which help fix packages import
-  (setq gofmt-command "goimports"
-        tab-width 4)
-  ;; call gofmt before saving
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  ;; set compile command (C-c C-c)
-  (if (not (string-match "go" compile-command))
-      (set (make-local-variable 'compile-command)
-           "go test -v"))
-  (local-set-key (kbd "C-c C-c") 'compile)
-  ;; jump to definition
-  (local-set-key (kbd "M-.") 'godef-jump)
-  ;; jump to definition by open other window
-  (local-set-key (kbd "C-x M-.") 'godef-jump-other-window)
-  ;; jump back
-  (local-set-key (kbd "M-,") 'pop-tag-mark)
-  ;; use default gopath
-  (local-set-key (kbd "C-c C-r") 'go-rename)
-  (go-guru-hl-identifier-mode))
-
-;; customrize config
-(add-hook 'go-mode-hook 'my-go-mode-hook)
-;; company auto complete
+
+(add-hook 'go-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-go))
-                          (company-mode)))
-;; eldoc setup
-(add-hook 'go-mode-hook 'go-eldoc-setup)
+                          (if (not (string-match "go" compile-command))
+                              (set (make-local-variable 'compile-command)
+                                   "go test -v"))
+                          (setq lsp-ui-doc-delay 1
+                                lsp-ui-doc-max-height 8
+                                lsp-ui-sideline-delay 2
+                                lsp-ui-sideline-show-code-actions nil
+                                lsp-ui-sideline-show-hover nil)
+                          ;;   ;; call gofmt before saving
+                          ;;(add-hook 'before-save-hook 'gofmt-before-save)
+                          (local-set-key (kbd "C-c C-c") 'compile)
+                          (local-set-key (kbd "C-c C-e") 'gorun)
+                          (add-hook 'before-save-hook #'lsp-format-buffer t t)
+                          (add-hook 'before-save-hook #'lsp-organize-imports t t)))
+
+
+(defun gorun ()
+  (interactive)
+  (shell-command (format "go run %s"  (buffer-file-name))))
+
 
 (provide 'init-go)
 ;; Local Variables:

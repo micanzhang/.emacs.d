@@ -30,7 +30,7 @@
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-utils)
-(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
+;;(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
 ;; Calls (package-initialize)
 (require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
@@ -43,8 +43,6 @@
 ;;----------------------------------------------------------------------------
 ;; Load configs for specific features and modes
 ;;----------------------------------------------------------------------------
-
-(require-package 'wgrep)
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'command-log-mode)
@@ -62,22 +60,17 @@
 (require 'init-ibuffer)
 (require 'init-flycheck)
 
-(require 'init-yasnippet)
-;;TODO(micanzhang):(require 'init-mu4e)
-
 (require 'init-recentf)
 (require 'init-smex)
 (require 'init-ivy)
 (require 'init-hippie-expand)
 (require 'init-company)
 (require 'init-windows)
+;;(require 'init-sessions)
 (require 'init-mmm)
 
 (require 'init-editing-utils)
 (require 'init-whitespace)
-
-;;TODO(micanzhang):(require 'init-fci) ;TODO: 
-;;TODO(micanzhang):(require 'init-google) ;TODO:
 
 (require 'init-vc)
 (require 'init-darcs)
@@ -86,36 +79,26 @@
 
 (require 'init-projectile)
 
-;;TODO(micanzhang):(require 'init-web)
-(require 'init-http)
 (require 'init-compile)
+(require 'init-crontab)
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
-;;(require 'init-erlang)
-(require 'init-javascript)
-;;(require 'init-php)
+;;(require 'init-javascript)
 (require 'init-org)
-;;TODO(micanzhang):(require 'init-plantuml) ;TODO: 
 (require 'init-nxml)
 (require 'init-html)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python)
-(require 'init-haskell)
 (require 'init-elm)
-(require 'init-ruby)
-;; (require 'init-rails)
+;;(require 'init-ruby)
 (require 'init-sql)
 (require 'init-go)
-;;TODO(micanzhang):(require 'init-coffee)
-;;TODO(micanzhang):(require 'init-c)
-;;TODO(micanzhang):(require 'init-java)
 (require 'init-rust)
 (require 'init-toml)
 (require 'init-yaml)
 (require 'init-docker)
-;; (maybe-require-package 'terraform-mode)
 (require 'init-terraform)
 
 (require 'init-paredit)
@@ -136,8 +119,11 @@
 (require 'init-ledger)
 
 ;;(require 'init-feed)
+(require 'init-http)
 (require 'init-programming)
 (require 'init-devops)
+(require 'init-yasnippet)
+(require 'init-plantuml)
 ;;TODO(micanzhang):(require 'init-pg)
 ;; Extra packages which don't require any configuration
 (require-package 'gnuplot)

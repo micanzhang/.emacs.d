@@ -71,25 +71,19 @@ instead."
                              current-prefix-arg))
           (let ((current-prefix-arg)
                 (dir (if use-current-dir
-                                         default-directory
-                               (condition-case err
-                                           (projectile-project-root)
-                                 (error default-directory)))))
+                         default-directory
+                       (condition-case err
+                           (projectile-project-root)
+                         (error default-directory)))))
             (funcall search-function initial-input dir)))))
-                    (after-load 'ivy
+    (after-load 'ivy
       (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
-                    (global-set-key (kbd "M-?") 'sanityinc/counsel-search-project)))
+    (global-set-key (kbd "M-?") 'sanityinc/counsel-search-project)))
 
 
 (when (maybe-require-package 'swiper)
   (after-load 'ivy
-    (defun sanityinc/swiper-at-point (sym)
-      "Use `swiper' to search for the symbol at point."
-      (interactive (list (thing-at-point 'symbol)))
-      (swiper sym))
-
-    (define-key ivy-mode-map (kbd "M-s /") 'sanityinc/swiper-at-point)))
-
+    (define-key ivy-mode-map (kbd "M-s /") 'swiper-thing-at-point)))
 
 (when (maybe-require-package 'ivy-xref)
   (setq xref-show-xrefs-function 'ivy-xref-show-xrefs))

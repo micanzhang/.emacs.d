@@ -80,10 +80,9 @@
   (interactive)
   (let* ((user-ext (read-string "Extension of file:"))
          (ext (if (> (length user-ext) 0) (format ".%s" user-ext) ""))
-         (file-name (make-temp-file
-                     (format-time-string "%Y%m%d%H%M%S")
-                     nil
-                     ext)))
+         (file-name (if (string= ext ".go")
+                        (concat (getenv "GOPATH") "/src/playground/" (format-time-string "%Y%m%d%H%M%S") ".go")
+                      (make-temp-file (format-time-string "%Y%m%d%H%M%S") nil ext))))
     (find-file file-name)))
 
 
@@ -91,7 +90,6 @@
                              ("go-mode" . "go run")
                              ("rust-mode" . "cargo script")
                              ("python-mode" . "python")
-                             ("php-mode" . "php")
                              ))
 
 ;;----------------------------------------------------------------------------
@@ -114,7 +112,7 @@
   (insert (number-to-string (floor (* 1000000 (float-time (current-time)))))))
 
 (global-set-key (kbd "C-c M-t") 'create-temp-file)
-(global-set-key (kbd "C-c C-e") 'execute-current-buffer)
+;; (global-set-key (kbd "C-c C-e") 'execute-current-buffer)
 (global-set-key (kbd "C-c i") 'insert-coursescript-id)
 
 

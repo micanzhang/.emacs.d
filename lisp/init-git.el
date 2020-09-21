@@ -27,6 +27,11 @@
   (after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'sanityinc/magit-or-vc-log-file)))
 
+(maybe-require-package 'forge)
+(after-load 'forge
+  (push '("git.llsapp.com" "git.llsapp.com/api/v4"
+          "git.llsapp.com" forge-gitlab-repository)
+        forge-alist))
 
 (after-load 'magit
   (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
