@@ -1,7 +1,11 @@
+;;--------------------;;; init-misc.el --- Miscellaneous config -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;;----------------------------------------------------------------------------
 ;; Misc config - yet to be placed in separate files
 ;;----------------------------------------------------------------------------
-(add-auto-mode 'tcl-mode "Portfile\\'")
+(add-auto-mode 'tcl-mode "^Portfile\\'")
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
@@ -21,12 +25,28 @@
    (normal-mode)))
 
 
-(setq-default regex-tool-backend 'perl)
-(after-load 're-builder
+(when (maybe-require-package 'info-colors)
+  (with-eval-after-load 'info
+    (add-hook 'Info-selection-hook 'info-colors-fontify-node)))
+
+
+;; Handle the prompt pattern for the 1password command-line interface
+(with-eval-after-load 'comint
+  (setq comint-password-prompt-regexp
+        (concat
+         comint-password-prompt-regexp
+         "\\|^Please enter your password for user .*?:\\s *\\'")))
+
+
+
+(when (maybe-require-package 'regex-tool)
+  (setq-default regex-tool-backend 'perl))
+
+(with-eval-after-load 're-builder
   ;; Support a slightly more idiomatic quit binding in re-builder
   (define-key reb-mode-map (kbd "C-c C-k") 'reb-quit))
 
-(add-auto-mode 'conf-mode "Procfile")
+(add-auto-mode 'conf-mode "^Procfile\\'")
 
 (defun my-find-file-check-make-large-file-read-only-hook ()
   "If a file is over a given size, make the buffer read only."
@@ -39,3 +59,4 @@
 
 
 (provide 'init-misc)
+;;; init-misc.el ends here

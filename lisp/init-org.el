@@ -62,8 +62,8 @@
       (url-copy-file url org-plantuml-jar-path))))
 
 (load-library "find-lisp")
-(when (file-exists-p "~/Dropbox/keep/gtd")
-  (setq org-agenda-files (find-lisp-find-files "~/Dropbox/keep/gtd" ".org$")))
+(when (file-exists-p "~/Code/org/orgdoc")
+  (setq org-agenda-files (find-lisp-find-files "~/Code/org/orgdoc" ".org$")))
 
 (define-minor-mode prose-mode
   "Set up a buffer for prose editing.
@@ -112,13 +112,11 @@ typical word processor."
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      `(("t" "todo" entry (file+headline "~/Google Drive/keep/gtd/self.org" "Tasks")  ; "" => org-default-notes-file
+      `(("t" "todo" entry (file+headline "~/Code/org/orgdoc/gtd.org" "Tasks")  ; "" => org-default-notes-file
          "* TODO %? :INBOX:\n%U\n" :clock-resume t)
-        ("c" "work" entry (file "~/Google Drive/keep/gtd/career.org")
-         "* TODO %? :INBOX:\n%U\n" :clock-resume t)
-        ("n" "note" entry (file "~/Google Drive/keep/gtd/self.org" "Notes")
+        ("n" "note" entry (file+headline "~/Code/org/orgdoc/gtd.org" "Notes")
          "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
-        ("l" "list" entry (file+headline "~/Google Drive/keep/gtd/self.org" "List")
+        ("l" "list" entry (file+headline "~/Code/org/orgdoc/gtd.org" "List")
          "* TODO [#C] %?\n%U\n")
         ))
 
@@ -396,7 +394,7 @@ typical word processor."
      (gnuplot . t)
      (haskell . nil)
      (latex . t)
-     (ledger . t)
+     ;;(ledger . t)
      (js . t)
      (ocaml . nil)
      (clojure . t)

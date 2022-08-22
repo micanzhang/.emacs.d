@@ -1,10 +1,10 @@
-(require-package 'sql-indent)
-(after-load 'sql
-  (require 'sql-indent))
+;;; init-sql.el --- Support for SQL -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
-(after-load 'sql
+(with-eval-after-load 'sql
   ;; sql-mode pretty much requires your psql to be uncustomised from stock settings
-  (push "--no-psqlrc" sql-postgres-options))
+  (add-to-list 'sql-postgres-options "--no-psqlrc"))
 
 (defun sanityinc/fix-postgres-prompt-regexp ()
   "Work around https://debbugs.gnu.org/cgi/bugreport.cgi?bug=22596.
@@ -18,7 +18,7 @@ Fix for the above hasn't been released as of Emacs 25.2."
 (defun sanityinc/pop-to-sqli-buffer ()
   "Switch to the corresponding sqli buffer."
   (interactive)
-  (if sql-buffer
+  (if (and sql-buffer (buffer-live-p sql-buffer))
       (progn
         (pop-to-buffer sql-buffer)
         (goto-char (point-max)))
@@ -26,17 +26,16 @@ Fix for the above hasn't been released as of Emacs 25.2."
     (when sql-buffer
       (sanityinc/pop-to-sqli-buffer))))
 
-(after-load 'sql
+(with-eval-after-load 'sql
   (define-key sql-mode-map (kbd "C-c C-z") 'sanityinc/pop-to-sqli-buffer)
   (when (package-installed-p 'dash-at-point)
-    (defun sanityinc/maybe-set-dash-db-docset ()
+    (defun sanityinc/maybe-set-dash-db-docset (&rest _)
       (when (eq sql-product 'postgres)
-        (set (make-local-variable 'dash-at-point-docset) "psql")))
+        (setq-local dash-at-point-docset "psql")))
 
     (add-hook 'sql-mode-hook 'sanityinc/maybe-set-dash-db-docset)
     (add-hook 'sql-interactive-mode-hook 'sanityinc/maybe-set-dash-db-docset)
-    (defadvice sql-set-product (after set-dash-docset activate)
-      (sanityinc/maybe-set-dash-db-docset))))
+    (advice-add 'sql-set-product :after 'sanityinc/maybe-set-dash-db-docset)))
 
 (setq-default sql-input-ring-file-name
               (expand-file-name ".sqli_history" user-emacs-directory))
@@ -48,18 +47,28 @@ Fix for the above hasn't been released as of Emacs 25.2."
 (add-hook 'sql-interactive-mode-hook 'sanityinc/font-lock-everything-in-sql-interactive-mode)
 
 
+(require-package 'sqlformat)
+(with-eval-after-load 'sql
+  (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat))
 
+;; Package ideas:
+;;   - PEV
 (defun sanityinc/sql-explain-region-as-json (beg end &optional copy)
   "Explain the SQL between BEG and END in detailed JSON format.
 This is suitable for pasting into tools such as
 http://tatiyants.com/pev/.
+
 When the prefix argument COPY is non-nil, do not display the
 resulting JSON, but instead copy it to the kill ring.
+
 If the region is not active, uses the current paragraph, as per
 `sql-send-paragraph'.
+
 Connection information is taken from the special sql-* variables
 set in the current buffer, so you will usually want to start a
-SQLi session first, or otherwise set `sql-database' etc."
+SQLi session first, or otherwise set `sql-database' etc.
+
+This command currently blocks the UI, sorry."
   (interactive "rP")
   (unless (eq sql-product 'postgres)
     (user-error "This command is for PostgreSQL only"))
@@ -89,22 +98,27 @@ SQLi session first, or otherwise set `sql-database' etc."
             (if (zerop retcode)
                 (progn
                   (json-mode)
+                  (read-only-mode 1)
                   (if copy
                       (progn
                         (kill-ring-save (buffer-substring-no-properties (point-min) (point-max)))
                         (message "EXPLAIN output copied to kill-ring."))
-                    (view-buffer (current-buffer))))
+                    (display-buffer (current-buffer))))
               (with-current-buffer (get-buffer-create "*sql-explain-errors*")
-                (setq buffer-read-only nil)
-                (insert-file-contents err-file nil nil nil t)
-                (view-buffer (current-buffer))
+                (let ((inhibit-read-only t))
+                  (insert-file-contents err-file nil nil nil t))
+                (display-buffer (current-buffer))
                 (user-error "EXPLAIN failed")))))))))
 
 
+;; Submitted upstream as https://github.com/stanaka/dash-at-point/pull/28
+(with-eval-after-load 'sql
+  (with-eval-after-load 'dash-at-point
+    (add-to-list 'dash-at-point-mode-alist '(sql-mode . "psql,mysql,sqlite,postgis"))))
 
 
-
-(after-load 'page-break-lines
-  (push 'sql-mode page-break-lines-modes))
+(with-eval-after-load 'page-break-lines
+  (add-to-list 'page-break-lines-modes 'sql-mode))
 
 (provide 'init-sql)
+;;; init-sql.el ends here

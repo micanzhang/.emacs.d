@@ -1,6 +1,9 @@
 ;;; Changing font sizes
 
 (require-package 'default-text-scale)
+(require-package 'unicode-fonts)
+
+(unicode-fonts-setup)
 (add-hook 'after-init-hook 'default-text-scale-mode)
 
 
@@ -23,13 +26,14 @@ This is helpful for writeroom-mode, in particular."
   (let ((font-family "DejaVu Sans Mono")
         (chinese-font-family "Source Han Sans CN")
         (font-size 18)
-        (chinese-font-size 22)
+        (chinese-font-size 18)
         )
     (when *is-a-mac*
       ;;(setq font-family "Fira Code")
       (setq font-family "PT Mono")
       ;;(setq font-family "Go Mono")
-      (setq chinese-font-family "PingFang SC")
+      ;;(setq chinese-font-family "PingFang SC")
+      (setq chinese-font-family "LXGW WeiKai Mono")
       )
     ;;set english font
     (when (member font-family (font-family-list))

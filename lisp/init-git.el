@@ -1,9 +1,18 @@
+;;; init-git.el --- Git SCM support -*- lexical-binding: t -*-
+;;; Commentary:
+
+;; See also init-github.el.
+
+;;; Code:
+
 ;; TODO: link commits from vc-log to magit-show-commit
 ;; TODO: smerge-mode
 (require-package 'git-blamed)
-(require-package 'gitignore-mode)
-(require-package 'gitconfig-mode)
-(maybe-require-package 'git-timemachine)
+;;(require-package 'gitignore-mode)
+;;(require-package 'gitconfig-mode)
+(when (maybe-require-package 'git-timemachine)
+  (global-set-key (kbd "C-x v t") 'git-timemachine-toggle))
+
 
 
 (when (maybe-require-package 'magit)
@@ -13,7 +22,7 @@
   ;; quickly open magit on any one of your projects.
   (global-set-key [(meta f12)] 'magit-status)
   (global-set-key (kbd "C-x g") 'magit-status)
-  (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+  (global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
   (defun sanityinc/magit-or-vc-log-file (&optional prompt)
     (interactive "P")
@@ -24,23 +33,17 @@
           (magit-log-buffer-file t))
       (vc-print-log)))
 
-  (after-load 'vc
+  (with-eval-after-load 'vc
     (define-key vc-prefix-map (kbd "l") 'sanityinc/magit-or-vc-log-file)))
 
-(maybe-require-package 'forge)
-(after-load 'forge
-  (push '("git.llsapp.com" "git.llsapp.com/api/v4"
-          "git.llsapp.com" forge-gitlab-repository)
-        forge-alist))
 
-(after-load 'magit
-  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up)
-  (add-hook 'magit-popup-mode-hook 'sanityinc/no-trailing-whitespace))
+(with-eval-after-load 'magit
+  (define-key magit-status-mode-map (kbd "C-M-<up>") 'magit-section-up))
 
 (maybe-require-package 'magit-todos)
 
 (require-package 'fullframe)
-(after-load 'magit
+(with-eval-after-load 'magit
   (fullframe magit-status magit-mode-quit-window))
 
 (when (maybe-require-package 'git-commit)
@@ -48,13 +51,13 @@
 
 
 (when *is-a-mac*
-  (after-load 'magit
+  (with-eval-after-load 'magit
     (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)])))))
 
 
 
 ;; Convenient binding for vc-git-grep
-(after-load 'vc
+(with-eval-after-load 'vc
   (define-key vc-prefix-map (kbd "f") 'vc-git-grep))
 
 
@@ -69,7 +72,7 @@
 ;;       (magit-svn-mode)))
 ;;   (add-hook 'magit-status-mode-hook #'sanityinc/maybe-enable-magit-svn-mode))
 
-(after-load 'compile
+(with-eval-after-load 'compile
   (dolist (defn (list '(git-svn-updated "^\t[A-Z]\t\\(.*\\)$" 1 nil nil 0 1)
                       '(git-svn-needs-update "^\\(.*\\): needs update$" 1 nil nil 2 1)))
     (add-to-list 'compilation-error-regexp-alist-alist defn)
@@ -95,3 +98,4 @@
 
 
 (provide 'init-git)
+;;; init-git.el ends here

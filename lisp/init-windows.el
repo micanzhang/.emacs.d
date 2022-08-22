@@ -1,4 +1,12 @@
-;;; -*- lexical-binding: t -*-
+;;; init-windows.el --- Working with windows within frames -*- lexical-binding: t -*-
+;;; Commentary:
+
+;; This is not about the "Windows" OS, but rather Emacs's "windows"
+;; concept: these are the panels within an Emacs frame which contain
+;; buffers.
+
+;;; Code:
+
 ;;----------------------------------------------------------------------------
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 ;;----------------------------------------------------------------------------
@@ -43,16 +51,22 @@
 ;; Rearrange split windows
 ;;----------------------------------------------------------------------------
 (defun split-window-horizontally-instead ()
+  "Kill any other windows and re-split such that the current window is on the top half of the frame."
   (interactive)
-  (save-excursion
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-horizontally))))
+    (split-window-horizontally)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
 
 (defun split-window-vertically-instead ()
+  "Kill any other windows and re-split such that the current window is on the left half of the frame."
   (interactive)
-  (save-excursion
+  (let ((other-buffer (and (next-window) (window-buffer (next-window)))))
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
+    (split-window-vertically)
+    (when other-buffer
+      (set-window-buffer (next-window) other-buffer))))
 
 (global-set-key (kbd "C-x |") 'split-window-horizontally-instead)
 (global-set-key (kbd "C-x _") 'split-window-vertically-instead)
@@ -89,7 +103,11 @@ Call a second time to restore the original window configuration."
 
 
 (unless (memq window-system '(nt w32))
-  (windmove-default-keybindings 'control))
+  (require-package 'windswap)
+  (add-hook 'after-init-hook (apply-partially 'windmove-default-keybindings 'control))
+  (add-hook 'after-init-hook (apply-partially 'windswap-default-keybindings 'shift 'control)))
+
+
 
 ;; gloden retio
 ;; https://github.com/roman/golden-ratio.el
@@ -97,7 +115,8 @@ Call a second time to restore the original window configuration."
 (golden-ratio-mode 1)
 
 ;; enable powerline
-(require-package 'powerline)
-(powerline-default-theme)
+;; (require-package 'powerline)
+;; (powerline-default-theme)
 
 (provide 'init-windows)
+;;; init-windows.el ends here

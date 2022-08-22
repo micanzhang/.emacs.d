@@ -1,4 +1,8 @@
-(global-set-key (kbd "M-/") 'hippie-expand)
+;;; init-hippie-expand.el --- Settings for hippie-expand -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+(global-set-key (kbd "H-/") 'hippie-expand)
 
 (setq hippie-expand-try-functions-list
       '(try-complete-file-name-partially
@@ -8,3 +12,4 @@
         try-expand-dabbrev-from-kill))
 
 (provide 'init-hippie-expand)
+;;; init-hippie-expand.el ends here

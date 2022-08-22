@@ -1,3 +1,7 @@
+;;; init-compile.el --- Helpers for M-x compile -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (setq-default compilation-scroll-output t)
 
 (require-package 'alert)
@@ -16,14 +20,14 @@
              :buffer buf
              :category 'compilation))))
 
-(after-load 'compile
+(with-eval-after-load 'compile
   (add-hook 'compilation-finish-functions
             'sanityinc/alert-after-compilation-finish))
 
 (defvar sanityinc/last-compilation-buffer nil
   "The last buffer in which compilation took place.")
 
-(after-load 'compile
+(with-eval-after-load 'compile
   (defun sanityinc/save-compilation-buffer (&rest _)
     "Save the compilation buffer to find it later."
     (setq sanityinc/last-compilation-buffer next-error-last-buffer))
@@ -51,7 +55,7 @@
 (advice-add 'shell-command-on-region :after 'sanityinc/shell-command-in-view-mode)
 
 
-(after-load 'compile
+(with-eval-after-load 'compile
   (require 'ansi-color)
   (defun sanityinc/colourise-compilation-buffer ()
     (when (eq major-mode 'compilation-mode)
@@ -59,7 +63,5 @@
   (add-hook 'compilation-filter-hook 'sanityinc/colourise-compilation-buffer))
 
 
-(maybe-require-package 'cmd-to-echo)
-
-
 (provide 'init-compile)
+;;; init-compile.el ends here

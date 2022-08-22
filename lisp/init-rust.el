@@ -1,31 +1,18 @@
-;;; init-rust --- config scripts for rust programming language
+;;; init-rust.el --- Support for the Rust language -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
-;; major mode
-(require-package 'rust-mode)
-;; racer supports code completaion of variables,functions and modules - https://github.com/racer-rust/emacs-racer
-(require-package 'racer)
-;; minor mode for cargo - https://github.com/kwrooijen/cargo.el
-(require-package 'cargo)
-;; flycheck supports - https://github.com/flycheck/flycheck-rust
-(require-package 'flycheck-rust)
+;; (when (maybe-require-package 'rust-mode)
+;;   (when (maybe-require-package 'racer)
+;;     (add-hook 'rust-mode-hook #'racer-mode))
+;;   (when (maybe-require-package 'company)
+;;     (add-hook 'racer-mode-hook #'company-mode)))
 
-(defun cargo-process-script ()
-  "Run the Cargo build command.
-With the prefix argument, modify the command's invocation.
-Cargo: Compile the current project."
-  (interactive)
-  (cargo-process--start "Script" (concat "cargo script " (buffer-file-name))))
+;; (when (maybe-require-package 'flycheck-rust)
+;;   (with-eval-after-load 'rust-mode
+;;     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
-(defun my:rust-hook ()
-  (setq rust-format-on-save t
-        company-tooltip-align-annotations t)
-  (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-  (define-key rust-mode-map (kbd "C-c C-r") 'cargo-process-script))
+(require-package 'rustic)
 
-(add-hook 'rust-mode-hook #'my:rust-hook)
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
-(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
-
-(provide `init-rust)
+(provide 'init-rust)
+;;; init-rust.el ends here
