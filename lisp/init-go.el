@@ -12,15 +12,20 @@
 
 (set-default-goenv)
 
-(add-hook 'go-mode-hook 'lsp-deferred)
+(defun my-eglot-organize-imports () (interactive)
+       (eglot-code-actions nil nil "source.organizeImports" t))
+
+
+(add-hook 'go-mode-hook 'eglot-ensure)
 (add-hook 'go-mode-hook (lambda ()
                           (if (not (string-match "go" compile-command))
                               (set (make-local-variable 'compile-command)
                                    "go test -v"))
                           (local-set-key (kbd "C-c C-c") 'compile)
                           (local-set-key (kbd "C-c C-e") 'gorun)
-                          (add-hook 'before-save-hook #'lsp-format-buffer t t)
-                          (add-hook 'before-save-hook #'lsp-organize-imports t t)))
+                          (add-hook 'before-save-hook 'my-eglot-organize-imports nil t)
+                          (add-hook 'before-save-hook #'eglot-format-buffer)
+                          ))
 
 (defun gorun ()
   (interactive)
