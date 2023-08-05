@@ -12,7 +12,7 @@
   (maybe-require-package 'consult-eglot))
 
 
-
+(setq eglot-ignored-server-capabilities '(:ducumentHighlightProvider))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
