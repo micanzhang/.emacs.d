@@ -21,10 +21,11 @@
                           (if (not (string-match "go" compile-command))
                               (set (make-local-variable 'compile-command)
                                    "go test -v"))
+                          (setq tab-width 4)
                           (local-set-key (kbd "C-c C-c") 'compile)
                           (local-set-key (kbd "C-c C-e") 'gorun)
                           (add-hook 'before-save-hook 'my-eglot-organize-imports nil t)
-                          (add-hook 'before-save-hook #'eglot-format-buffer)
+                          (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
                           ))
 
 (defun gorun ()
