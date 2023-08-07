@@ -1,6 +1,4 @@
 ;;; golang configuration.
-(require-package 'go-mode)
-
 (defun set-default-goenv ()
   (interactive)
   (when (memq window-system '(mac ns))
@@ -22,6 +20,15 @@
                               (set (make-local-variable 'compile-command)
                                    "go test -v"))
                           (setq tab-width 4)
+                          (setq-default eglot-workspace-configuration
+                                        '((:gopls .
+                                                  ((staticcheck . t)
+                                                   (usePlaceholders . t)
+                                                   (env . ((GOFLAGS . "-tags=integration,smoke,smoketf")))
+                                                   (analyses .
+                                                             ((unusedparams . t)
+                                                              (unusedvariable . t)
+                                                              (nilness . t)))))))
                           (local-set-key (kbd "C-c C-c") 'compile)
                           (local-set-key (kbd "C-c C-e") 'gorun)
                           (add-hook 'before-save-hook 'my-eglot-organize-imports nil t)
@@ -31,6 +38,7 @@
 (defun gorun ()
   (interactive)
   (shell-command (format "go run %s"  (buffer-file-name))))
+
 
 (provide 'init-go)
 ;; Local Variables:
